@@ -1,0 +1,27 @@
+$float-properties:(
+  left: left,
+  right:right,
+  none:none
+);
+
+@mixin float-alignment($float-prop,$breakpoints){
+  @each $breakpoint-name, $breakpoint-value in $breakpoints {
+    @if($breakpoint-value == 0) {
+      @each $name, $property in $float-prop {
+        .float-#{$name}{
+          float:$property;
+        }
+      }
+    }@else{
+      @media screen and ($viewport-type: $breakpoint-value) {
+        @each $name, $property in $float-prop {
+          .float-#{$breakpoint-name}-#{$name}{
+            float:$property;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include float-alignment($float-properties,$breakpoints-grid)

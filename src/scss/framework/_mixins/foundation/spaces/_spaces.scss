@@ -1,0 +1,24 @@
+@mixin make-sp-a {
+    margin-bottom: $measure*10;
+    @media all and ($viewport-type: $tablets) {
+        margin-bottom: $measure*7;
+    }
+}
+
+@mixin make-sp-b {
+    margin-bottom: $measure*7;
+    @media all and ($viewport-type: $tablets) {
+        margin-bottom: $measure*4;
+    }
+}
+
+@mixin make-sp-c {
+    margin-bottom: $measure*4;
+    @media all and ($viewport-type: $tablets) {
+        margin-bottom: $measure*3;
+    }
+}
+
+@mixin make-sp-d {
+    margin-bottom: $measure*3;
+}

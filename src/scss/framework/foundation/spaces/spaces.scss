@@ -1,0 +1,15 @@
+.f--sp-a {
+    @include make-sp-a();
+}
+
+.f--sp-b {
+    @include make-sp-b();
+}
+
+.f--sp-c {
+    @include make-sp-c();
+}
+
+.f--sp-d {
+    @include make-sp-d();
+}

@@ -1,0 +1,78 @@
+$font-styles: (
+  italic: italic,
+);
+
+@mixin font-style($f-style, $breakpoints) {
+  @each $breakpoint-name, $breakpoint-value in $breakpoints {
+    @if ($breakpoint-value == 0) {
+      @each $name, $property in $f-style {
+        .font-style-#{$name} {
+          font-style: $property;
+        }
+      }
+    } @else {
+      @media screen and ($viewport-type: $breakpoint-value) {
+        @each $name, $property in $f-style {
+          .font-style-#{$breakpoint-name}-#{$name} {
+            font-style: $property;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include font-style($font-styles, $breakpoints-grid);
+
+$font-weight: (
+  medium: 500,
+  bold: 700,
+);
+
+@mixin font-weight($f-weight, $breakpoints) {
+  @each $breakpoint-name, $breakpoint-value in $breakpoints {
+    @if ($breakpoint-value == 0) {
+      @each $name, $property in $f-weight {
+        .font-weight-#{$name} {
+          font-weight: $property;
+        }
+      }
+    } @else {
+      @media screen and ($viewport-type: $breakpoint-value) {
+        @each $name, $property in $f-weight {
+          .font-weight-#{$breakpoint-name}-#{$name} {
+            font-weight: $property;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include font-weight($font-weight, $breakpoints-grid);
+
+$font-transform: (
+  uppercase: uppercase,
+);
+
+@mixin font-transform($f-transform, $breakpoints) {
+  @each $breakpoint-name, $breakpoint-value in $breakpoints {
+    @if ($breakpoint-value == 0) {
+      @each $name, $property in $f-transform {
+        .font-transform-#{$name} {
+          text-transform: $property;
+        }
+      }
+    } @else {
+      @media screen and ($viewport-type: $breakpoint-value) {
+        @each $name, $property in $f-transform {
+          .font-transform-#{$breakpoint-name}-#{$name} {
+            text-transform: $property;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include font-transform($font-transform, $breakpoints-grid);

@@ -1,0 +1,34 @@
+.f--vw-container {
+  padding-right: $half-gutter-width;
+  padding-left: $half-gutter-width;
+  min-width: $g-container-width;
+  margin-left: calc((100vw - #{$g-container-width})*.5);
+  margin-right: calc((100vw - #{$g-container-width})*.5);
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
+  @media all and ($viewport-type: $laptop){
+    min-width: 90vw;
+    margin-left: calc((100vw - 90vw)*.5);
+    margin-right: calc((100vw - 90vw)*.5);
+  }
+  @media all and ($viewport-type: $mobile){
+    min-width: 95vw;
+    margin-left: calc((100vw - 95vw)*.5);
+    margin-right: calc((100vw - 95vw)*.5);
+  }
+  &--second{
+    flex-direction: row;
+  }
+  &--third{
+    min-width: 0;
+  }
+  &--remove-row{
+    flex-direction: row;
+    column-gap: 32px;
+    *[class*="f--vw-offset"]{
+      margin-left: 0;
+    }
+  }
+}

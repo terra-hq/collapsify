@@ -1,0 +1,18 @@
+@mixin block-highlighted($highlighted-margin-bottom: $measure * 4, $highlighted-padding-top: 0) {
+    & > .highlighted {
+        margin-bottom: $highlighted-margin-bottom;
+        padding-top: $highlighted-padding-top;
+    }
+}
+
+@mixin block-highlighted-modifier($text-font, $text-color, $text-font-weight: false) {
+    .highlighted {
+        @extend .f--font-#{$text-font} !optional;
+        color: $text-color;
+        white-space: pre-line;
+
+        @if $text-font-weight {
+            font-weight: $text-font-weight;
+        }
+    }
+}

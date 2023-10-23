@@ -1,0 +1,29 @@
+$position-properties:(
+  relative:relative,
+  // absolute:absolute,
+  fixed:fixed,
+  sticky:sticky,
+  // inherit:inherit,
+  // unset:unset
+);
+@mixin position-alignment($position-prop,$breakpoints){
+  @each $breakpoint-name, $breakpoint-value in $breakpoints {
+    @if($breakpoint-value == 0) {
+      @each $name, $property in $position-prop {
+        .position-#{$name}{
+          position:$property;
+        }
+      }
+    }@else{
+      @media screen and ($viewport-type: $breakpoint-value) {
+        @each $name, $property in $position-prop {
+          .position-#{$breakpoint-name}-#{$name}{
+            position:$property;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include position-alignment($position-properties,$breakpoints-grid)

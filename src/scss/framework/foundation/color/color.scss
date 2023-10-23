@@ -1,0 +1,6 @@
+/*Basic Loop Colors */
+@each $color-name, $color in $color-options {
+    .f--color-#{$color-name}{
+        color:$color;
+    }
+}

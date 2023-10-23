@@ -1,0 +1,19 @@
+.f--gap-a {
+    @include make-gap-a();
+}
+
+.f--gap-b {
+    @include make-gap-b();
+}
+
+.f--gap-c {
+    @include make-gap-c();
+}
+
+.f--gap-d {
+    @include make-gap-d();
+}
+
+.f--gap-e {
+    @include make-gap-e();
+}

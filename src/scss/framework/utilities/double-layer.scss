@@ -1,0 +1,25 @@
+//front-items absolute
+.double-layer-fa {
+  position: relative;
+  &__front-items {
+    @include make-layer-absolute();
+    z-index: 1;
+  }
+  &__back-items {
+    position: relative;
+    z-index: 0;
+  }
+}
+
+//back items absolute
+.double-layer-ba {
+  position: relative;
+  &__front-items {
+    position: relative;
+    z-index: 1;
+  }
+  &__back-items {
+    @include make-layer-absolute();
+    z-index: 0;
+  }
+}

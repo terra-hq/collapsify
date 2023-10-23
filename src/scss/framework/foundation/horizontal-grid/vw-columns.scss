@@ -1,0 +1,180 @@
+$viewport-layouts-l: (
+  'all': $all,
+  'desktop': $desktop,
+);
+
+$viewport-layouts-m: (
+  'laptop': $laptop,
+  'tabletl': $tabletl,
+  'tabletm': $tabletm,
+  'tablets': $tablets,
+);
+
+$viewport-layouts-s: (
+  'mobile': $mobile,
+  'mobiles': 420px,
+);
+
+//* Columns
+
+
+@mixin make-col($i) {
+    max-height: 100%;
+    width: calc(((#{$g-container-width}) / #{$columns})*#{$i});
+    padding-right: $half-gutter-width;
+    padding-left: $half-gutter-width;
+    @media all and ($viewport-type: $laptop){
+        width: calc(((90vw) / #{$columns})*#{$i});
+    }
+    @media all and ($viewport-type: $mobile){
+        width: calc(((95vw) / #{$columns})*#{$i});
+    }
+}
+
+.f--vw-col {
+    width: auto;
+    padding-right: $half-gutter-width;
+    padding-left: $half-gutter-width;
+}
+.f--vw-col-max {
+    width: max-content;
+    padding-right: $half-gutter-width;
+    padding-left: $half-gutter-width;
+}
+//* columns for large breakpoints
+@mixin build-columns($size, $bkpt) {
+    @for $i from 1 through $columns {
+        @if ($size == 'all') {
+            .f--vw-col-#{$i} {
+                @include make-col($i);
+            }
+        } @else {
+            .f--vw-col-#{$size}-#{$i} {
+                max-height: 100%;
+                @media all and ($viewport-type: #{$bkpt}) {
+                    width: calc(((#{$g-container-width}) / #{$columns})*#{$i});
+                }
+                @media all and ($viewport-type: $laptop){
+                    width: calc(((90vw) / #{$columns})*#{$i});
+                }
+                @media all and ($viewport-type: $mobile){
+                    width: calc(((95vw) / #{$columns})*#{$i});
+                }
+            }
+        }
+    }
+}
+@each $size, $bkpt in $viewport-layouts-l {
+    @include build-columns($size, $bkpt);
+}
+
+//* columns for medium breakpoints
+@mixin build-columns($size, $bkpt) {
+    @for $i from 1 through $columns {
+        .f--vw-col-#{$size}-#{$i} {
+            @media all and ($viewport-type: #{$bkpt}) {
+                width: calc(((90vw) / #{$columns})*#{$i});
+            }
+            @media all and ($viewport-type: $mobile){
+                width: calc(((95vw) / #{$columns})*#{$i});
+            }
+        }
+    }
+}
+@each $size, $bkpt in $viewport-layouts-m {
+    @include build-columns($size, $bkpt);
+}
+
+//* columns for small breakpoints
+@mixin build-columns($size, $bkpt) {
+    @for $i from 1 through 36 {
+        .f--vw-col-#{$size}-#{$i} {
+            $value-component: calc(((95vw) / #{$columns})*#{$i});
+            @media all and ($viewport-type: #{$bkpt}) {
+                width: $value-component;
+            }
+        }
+    }
+}
+@each $size, $bkpt in $viewport-layouts-s {
+    @include build-columns($size, $bkpt);
+}
+//* columns remove gutter
+@mixin build-columns--remove-gutter($size, $bkpt) {
+    @for $i from 1 through $columns {
+        @if ($size == 'mobile') or ($size == 'mobiles') {
+            .f--vw-row--remove-gutter{
+                .f--vw-col-#{$size}-#{$i} {
+                    @media all and ($viewport-type: #{$bkpt}) {
+                        width: calc(((100vw) / #{$columns})*#{$i});
+                    }
+                }
+            }
+        }
+    }
+}
+@each $size, $bkpt in $viewport-layouts-s {
+    @include build-columns--remove-gutter($size, $bkpt);
+}
+//* Offset
+@mixin make-offset($i) {
+    margin-left: calc(((#{$g-container-width}) / #{$columns})*#{$i});
+    transition: $time-b;
+    @media all and ($viewport-type: $laptop){
+        margin-left: calc(((90vw) / #{$columns})*#{$i});
+    }
+    @media all and ($viewport-type: $mobile){
+        margin-left: calc(((95vw) / #{$columns})*#{$i});
+    }
+}
+
+//* offset for large breakpoints
+@mixin build-offset($size, $bkpt) {
+    @for $i from 0 through $columns {
+        @if ($size == 'all') {
+            .f--vw-offset-#{$i} {
+                @include make-offset($i);
+            }
+        } @else {
+            .f--vw-offset-#{$size}-#{$i} {
+                @media all and ($viewport-type: #{$bkpt}) {
+                    @include make-offset($i);
+                }
+            }
+        }
+    }
+}
+@each $size, $bkpt in $viewport-layouts-l {
+    @include build-offset($size, $bkpt);
+}
+
+//* offset for medium breakpoints
+@mixin build-offset($size, $bkpt) {
+    @for $i from 0 through $columns {
+        .f--vw-offset-#{$size}-#{$i} {
+            @media all and ($viewport-type: #{$bkpt}) {
+                margin-left: calc(((90vw) / #{$columns})*#{$i});
+            }
+            @media all and ($viewport-type: $mobile){
+                margin-left: calc(((95vw) / #{$columns})*#{$i});
+            }
+        }
+    }
+}
+@each $size, $bkpt in $viewport-layouts-m {
+    @include build-offset($size, $bkpt);
+}
+
+//* offset for small breakpoints
+@mixin build-offset($size, $bkpt) {
+    @for $i from 0 through $columns {
+        .f--vw-offset-#{$size}-#{$i} {
+            @media all and ($viewport-type: #{$bkpt}) {
+                margin-left: calc(((95vw) / #{$columns})*#{$i});
+            }
+        }
+    }
+}
+@each $size, $bkpt in $viewport-layouts-s {
+    @include build-offset($size, $bkpt);
+}

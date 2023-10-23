@@ -1,0 +1,64 @@
+//IE img with parents width and auto height, if the img is put with correct AR it will see correctly (https://imgur.com/zkNrIOt)
+@mixin make-ar($size: default) {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    @if $size == "default" {
+    } @else {
+        aspect-ratio: $size;
+    }
+}
+
+@mixin make-ar-a-item{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: $border-radius-a;
+    // i explorer
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        position: relative;
+        top: auto;
+        left: auto;
+        height: auto;
+    }
+}
+@mixin make-ar-a-item__img{
+    @include make-ar-a-item();
+    object-fit: cover;
+    object-position: center;
+}
+
+//IE img with real size, you can see only a few part of the image (https://imgur.com/q5YsuBU)
+@mixin make-ar-b($size) {
+    position: relative;
+    width: 100%;
+    padding-top:#{$size};
+    border-radius: $border-radius-a;
+    overflow: hidden;
+}
+@mixin make-ar-b-item{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    // i explorer
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      top: 50%;
+      left: 50%;
+      width: auto;
+      height: auto;
+      min-width: 100%;
+      min-height: 100%;
+      max-width: inherit;
+      transform: translate(-50%, -50%);
+    }
+}
+@mixin make-ar-b-item__img{
+    @include make-ar-b-item();
+    object-fit: cover;
+    object-position: center;
+}

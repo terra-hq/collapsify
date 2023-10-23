@@ -1,0 +1,29 @@
+$align-properties:(
+//   baseline: baseline,
+//   stretch:stretch,
+  flex-start:flex-start,
+  flex-end:flex-end,
+  center:center
+);
+
+@mixin flex-alignitems($align-prop,$breakpoints){
+  @each $breakpoint-name, $breakpoint-value in $breakpoints {
+    @if($breakpoint-value == 0) {
+      @each $name, $property in $align-prop {
+        .align-items-#{$name}{
+            align-items:$property;
+        }
+      }
+    }@else{
+      @media screen and ($viewport-type: $breakpoint-value) {
+        @each $name, $property in $align-prop {
+            .align-items-#{$breakpoint-name}-#{$name}{
+                align-items:$property;
+            }
+        }
+      }
+    }
+  }
+}
+
+@include flex-alignitems($align-properties,$breakpoints-grid)

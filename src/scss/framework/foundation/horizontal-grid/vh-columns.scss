@@ -1,0 +1,58 @@
+$viewport-height-layouts: (
+//   'laptop': $laptop,
+  'tabletl': 800px,
+  'tablets': 640px,
+//   'mobile': $tablets,
+);
+
+//* Columns changes with vertical breakpoints
+@mixin build-columns($size, $bkpt) {
+    @for $i from 1 through $columns*3 {
+        .f--vh-col-#{$size}-#{$i} {
+            @media all and (max-height: #{$bkpt}) {
+                width: calc(((#{$g-container-width}) / #{$columns})*#{$i});
+            }
+            @media all and (max-height: #{$bkpt}) and ($viewport-type: $laptop) {
+                width: calc(((90vw) / #{$columns})*#{$i});
+            }
+            @media all and (max-height: #{$bkpt}) and ($viewport-type: $mobile){
+                width: calc(((95vw) / #{$columns})*#{$i});
+            }
+        }
+    }
+}
+@each $size, $bkpt in $viewport-height-layouts {
+    @include build-columns($size, $bkpt);
+}
+
+//* Offset
+@mixin make-offset($i) {
+    margin-left: calc(((#{$g-container-width}) / #{$columns})*#{$i});
+    transition: $time-b;
+    @media all and ($viewport-type: $laptop){
+        margin-left: calc(((90vw) / #{$columns})*#{$i});
+    }
+    @media all and ($viewport-type: $mobile){
+        margin-left: calc(((95vw) / #{$columns})*#{$i});
+    }
+}
+
+//* offset for large breakpoints
+@mixin build-offset($size, $bkpt) {
+    @for $i from 0 through 36 {
+        @if ($size == 'all') {
+            .f--vh-offset-#{$i} {
+                @include make-offset($i);
+            }
+        } @else {
+            .f--vh-offset-#{$size}-#{$i} {
+                @media all and (max-height: #{$bkpt}) {
+                    @include make-offset($i);
+                }
+            }
+        }
+    }
+}
+@each $size, $bkpt in $viewport-height-layouts {
+    @include build-offset($size, $bkpt);
+}
