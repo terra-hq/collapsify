@@ -118,7 +118,7 @@ export default class Collapsify {
     if (toggleButton.length > 0) {
       [].slice.call(toggleButton).forEach((button) => {
         
-         // ! y aca tambien!
+         // ! y aca tambien! // nota!
         // button.classList.add(this.options.activeClass);
 
         let buttonHasClass = '';
