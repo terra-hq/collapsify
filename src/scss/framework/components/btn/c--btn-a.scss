@@ -1,0 +1,15 @@
+.c--btn-a {
+    background:map-get($color-options, a );
+    padding:$measure;
+    color:map-get($color-options, b );
+    &.is-active{
+        background:red
+    }
+    &--second{
+        background:map-get($color-options, e );
+    }
+    &--is-active{
+        background:map-get($color-options, d);
+    }
+    
+}

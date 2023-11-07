@@ -13,7 +13,7 @@ html{
 }
 
 body {
-  @extend .f--background-a;
+  @extend .f--background-b;
   @extend .f--font-e;
   @extend .f--color-a;
   overflow-x: hidden;
@@ -131,4 +131,54 @@ select:-webkit-autofill:focus {
   -webkit-text-fill-color: map-get($color-options,b);
   -webkit-box-shadow: 0 0 0px 1000px map-get($color-options,b) inset;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+.c--code-a {
+  position: relative;
+  background-color: map-get($colorbg-options, a);
+  white-space: pre;
+  word-wrap: break-word;
+  overflow: auto;
+  margin-bottom: $measure*2;
+
+
+  &__label {
+      // @extend .f--font-g;
+      font-weight: 600;
+      color: map-get($color-options, c);
+      position: absolute;
+      left: $measure;
+      top: 15px;
+      text-align: center;
+      width: 30px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      pointer-events: none;
+      text-transform: uppercase;
+  }
+
+  &__content {
+      font-family: "Inconsolata", "Monaco", "Consolas", "Andale Mono",
+          "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+      display: block;
+      margin: 0 0 0 $measure * 8;
+      // padding: 15px 16px 14px;
+      border-left: 1px solid lighten(map-get($color-options, a), 8%);
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 19px;
+      color: #ddd;
+  }
+}
+
+.c--note-a{
+  background-color: map-get($color-options, f );
+  padding: $measure * 2;
+  p{
+    @extend .f--font-e;
+    color: map-get($color-options, c);
+    padding: $measure * 2;
+    margin-bottom: $measure * 2;
+  }
 }

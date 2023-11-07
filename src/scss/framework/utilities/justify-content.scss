@@ -11,14 +11,14 @@ $justify-properties:(
   @each $breakpoint-name, $breakpoint-value in $breakpoints {
     @if($breakpoint-value == 0) {
       @each $name, $property in $justify-prop {
-        .justify-content-#{$name}{
+        .u--justify-content-#{$name}{
             justify-content:$property;
         }
       }
     }@else{
       @media screen and ($viewport-type: $breakpoint-value) {
         @each $name, $property in $justify-prop {
-            .justify-content-#{$breakpoint-name}-#{$name}{
+            .u--justify-content-#{$breakpoint-name}-#{$name}{
                 justify-content:$property;
             }
         }

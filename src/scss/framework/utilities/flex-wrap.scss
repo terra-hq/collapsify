@@ -5,14 +5,14 @@ $wrap-properties:(
   @each $breakpoint-name, $breakpoint-value in $breakpoints {
     @if($breakpoint-value == 0) {
       @each $name, $property in $wrap-prop {
-        .flex-wrap-#{$name}{
+        .u--flex-wrap-#{$name}{
           flex-wrap:$property;
         }
       }
     }@else{
       @media screen and ($viewport-type: $breakpoint-value) {
         @each $name, $property in $wrap-prop {
-          .flex-wrap-#{$breakpoint-name}-#{$name}{
+          .u--flex-wrap-#{$breakpoint-name}-#{$name}{
             flex-wrap:$property;
           }
         }

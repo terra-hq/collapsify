@@ -1,2 +1,12 @@
 
 @import './framework/components/card/c--card-a.scss';
+@import '@scss/framework/utilities/utilities.scss';
+
+
+/* Global Components */
+@import '@/scss/framework/components/btn/c--btn-a.scss';
+
+.c--content-a{
+    background: grey;
+
+}

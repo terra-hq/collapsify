@@ -9,14 +9,14 @@ $text-properties:(
     @each $breakpoint-name, $breakpoint-value in $breakpoints {
         @if($breakpoint-value == 0) {
           @each $name, $property in $text-prop {
-              .text-#{$name}{
+              .u--text-#{$name}{
                   text-align:$property;
               }
           }
         }@else{
           @media screen and ($viewport-type: $breakpoint-value) {
               @each $name, $property in $text-prop {
-                .text-#{$breakpoint-name}-#{$name}{
+                .u--text-#{$breakpoint-name}-#{$name}{
                     text-align:$property;
                 }
               }

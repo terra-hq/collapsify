@@ -6,14 +6,14 @@ $font-styles: (
   @each $breakpoint-name, $breakpoint-value in $breakpoints {
     @if ($breakpoint-value == 0) {
       @each $name, $property in $f-style {
-        .font-style-#{$name} {
+        .u--font-style-#{$name} {
           font-style: $property;
         }
       }
     } @else {
       @media screen and ($viewport-type: $breakpoint-value) {
         @each $name, $property in $f-style {
-          .font-style-#{$breakpoint-name}-#{$name} {
+          .u--font-style-#{$breakpoint-name}-#{$name} {
             font-style: $property;
           }
         }
@@ -33,14 +33,14 @@ $font-weight: (
   @each $breakpoint-name, $breakpoint-value in $breakpoints {
     @if ($breakpoint-value == 0) {
       @each $name, $property in $f-weight {
-        .font-weight-#{$name} {
+        .u--font-weight-#{$name} {
           font-weight: $property;
         }
       }
     } @else {
       @media screen and ($viewport-type: $breakpoint-value) {
         @each $name, $property in $f-weight {
-          .font-weight-#{$breakpoint-name}-#{$name} {
+          .u--font-weight-#{$breakpoint-name}-#{$name} {
             font-weight: $property;
           }
         }

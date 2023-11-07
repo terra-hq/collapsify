@@ -1,3 +1,3 @@
-# Global Components By Terra
+# Starter Package in Vite
 
 Testing
