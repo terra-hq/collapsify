@@ -1,20 +1,31 @@
-import './../scss/index.scss';
+import "./../scss/index.scss";
 // @ts-ignore
-import Collapsify from './Collapsify.js';
+import Collapsify from "./Collapsify.js";
 // @ts-ignore
-import UTMParamHandler from './Cookies.js';
+import UTMParamHandler from "./Cookies.js";
 
 // @ts-ignore
-var SimpleExample = new Collapsify({})
+var SimpleExample = new Collapsify({});
 
 // @ts-ignore
 var different = new Collapsify({
-    nameSpace:'different',
-})
+    nameSpace: "different",
+});
+
+// @ts-ignore
+var different = new Collapsify({
+    nameSpace: "accordion",
+});
 
 // @ts-ignore
 const nested = new Collapsify({
     nameSpace: "nested",
-    closeOthers: false
+    closeOthers: false,
 });
 
+// @ts-ignore
+const tab = new Collapsify({
+    nameSpace: "tab",
+    closeOthers: true,
+    includeResponsiveDropdown: true,
+});

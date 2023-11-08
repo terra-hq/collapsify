@@ -1,229 +1,235 @@
-import  JSUTIL from '@andresclua/jsutil';
+import JSUTIL from "@andresclua/jsutil";
 
 export default class Collapsify {
-  constructor(_options = {}) {
-    this.jsui = new JSUTIL();
-    const nameSpace = _options && "nameSpace" in _options ? _options.nameSpace : "collapsify";
-    const defaultOptions = {
-      nameSpace: "collapsify",
-      toggleButtonAttr: `data-${nameSpace}-control`,
-      toggleContentAttr: `data-${nameSpace}-content`,
-      activeClass: "--is-active",
-      isAnimation: true,
-      closeOthers: true,
-      animationSpeed: 400,
-      cssEasing: "ease-in-out",
-      onSlideStart: () => {},
-      onSlideEnd: () => {}
-    };
-    this.options = {
-      ...defaultOptions,
-      ..._options
-    };
-    this.toggleContentEls = [].slice.call(document.querySelectorAll(`[${this.options.toggleContentAttr}]`));
-    this.toggleButtonEls = [].slice.call(document.querySelectorAll(`[${this.options.toggleButtonAttr}]`));
-    
-    if (this.toggleContentEls.length !== 0 || this.toggleButtonEls.length !== 0) {
-      this.init()
+    constructor(_options = {}) {
+        this.jsui = new JSUTIL();
+        const nameSpace = _options && "nameSpace" in _options ? _options.nameSpace : "collapsify";
+        const defaultOptions = {
+            nameSpace: _options && "nameSpace" in _options ? _options.nameSpace : "collapsify",
+            toggleButtonAttr: `data-${nameSpace}-control`,
+            toggleContentAttr: `data-${nameSpace}-content`,
+            toggleSelectAttr: _options && "includeResponsiveDropdown" in _options && `data-${nameSpace}-dropdown`,
+            activeClass: "--is-active",
+            isAnimation: true,
+            closeOthers: true,
+            animationSpeed: 400,
+            cssEasing: "ease-in-out",
+            onSlideStart: () => {},
+            onSlideEnd: () => {},
+        };
+        this.options = {
+            ...defaultOptions,
+            ..._options,
+        };
+        this.toggleContentEls = [].slice.call(document.querySelectorAll(`[${this.options.toggleContentAttr}]`));
+        this.toggleButtonEls = [].slice.call(document.querySelectorAll(`[${this.options.toggleButtonAttr}]`));
+
+        if (this.toggleContentEls.length !== 0 || this.toggleButtonEls.length !== 0) {
+            this.init();
+        }
     }
-  }
-  init(){
-    this.initContentsState(this.toggleContentEls);
-    this.handleButtonsEvent(this.toggleButtonEls);
-  }
-
-  initContentsState(contentEls) {
-    this.itemsState = {};
-    contentEls.forEach((contentEl) => {
-      contentEl.style.overflow = "hidden";
-      contentEl.style.maxHeight = "none";
-      const isOpen = contentEl.classList.contains(this.options.activeClass);
-      const id = contentEl.getAttribute(this.options.toggleContentAttr);
-      if (!id) return;
-      this.setItemState(id, isOpen);
-      if (!isOpen) {
-        this.close(id, false, false);
-      } else {
-        this.open(id, false, false);
-      }
-    });
-  }
-
-  handleButtonsEvent(buttonElement) {
-    buttonElement.forEach((buttonEl) => {
-      const id = buttonEl.getAttribute(this.options.toggleButtonAttr);
-      if (id) {
-        buttonEl.addEventListener("click", (e) => {
-          e.preventDefault();
-          this.toggleSlide(id, true);
-        }, false);
-      }
-    });
-  }
-
-  setItemState(id, isOpen) {
-    this.itemsState[id] = {
-      isOpen: isOpen,
-      isAnimating: false
-    };
-  }
-
-  toggleSlide(id, isRunCallback = true) {
-    if (this.itemsState[id]?.isAnimating) return;
-    if (this.itemsState[id]?.isOpen === false) {
-      this.open(id, isRunCallback, this.options.isAnimation);
-    } else {
-      this.close(id, isRunCallback, this.options.isAnimation);
-    }
-  }
-
-  open(id, isRunCallback = true, isAnimation = true) {
-    if (!id) return;
-    if (!Object.prototype.hasOwnProperty.call(this.itemsState, id)) {
-      this.setItemState(id, false);
-    }
-    const toggleBody = document.querySelector(`[${this.options.toggleContentAttr}='${id}']`);
-    if (!toggleBody) {
-      return;
-    }
-    this.itemsState[id].isAnimating = true;
-
-    if (this.options.closeOthers) {
-      [].slice.call(this.toggleContentEls).forEach((contentEl) => {
-        const closeId = contentEl.getAttribute(this.options.toggleContentAttr);
-        if (closeId && closeId !== id) this.close(closeId, false, isAnimation);
-      });
-    }
-    if (isRunCallback !== false) this.options.onSlideStart(true, id);
-
-    const clientHeight = this.getTargetHeight(toggleBody);
-    toggleBody.style.visibility = "visible";
-    // ! guido aca hice cualquier cagada
-    // toggleBody.classList.add(this.options.activeClass);
-    let contentHasClass = '';
-    if(!toggleBody.classList[0]){
-      contentHasClass = this.options.activeClass
-      
-    }else{
-      contentHasClass = toggleBody.classList[0];
-      console.log(contentHasClass)
-      contentHasClass+= this.options.activeClass;
-      toggleBody.classList.add(contentHasClass);
-
+    init() {
+        this.initContentsState(this.toggleContentEls);
+        this.handleButtonsEvent(this.toggleButtonEls);
+        if (this.options.toggleSelectAttr) {
+            this.toggleSelectsEls = [].slice.call(document.querySelectorAll(`[${this.options.toggleSelectAttr}]`));
+            this.handleDropdownSelectEvent(this.toggleSelectsEls);
+        }
     }
 
-    
+    initContentsState(contentEls) {
+        this.itemsState = {};
+        contentEls.forEach((contentEl) => {
+            this.jsui.addStyle(contentEl, "overflow", "hidden");
+            this.jsui.addStyle(contentEl, "max-height", "none");
+            const isOpen = Array.from(contentEl.classList).some((classItem) => classItem.includes(this.options.activeClass));
+            const id = this.jsui.getAttr(contentEl, this.options.toggleContentAttr);
+            if (!id) return;
+            this.setItemState(id, isOpen);
+            if (!isOpen) {
+                this.close(id, false, false);
+            } else {
+                this.open(id, false, false);
+            }
+        });
+    }
 
-    const toggleButton = document.querySelectorAll(`[${this.options.toggleButtonAttr}='${id}']`);
-    if (toggleButton.length > 0) {
-      [].slice.call(toggleButton).forEach((button) => {
-        
-         // ! y aca tambien! // nota!
-        // button.classList.add(this.options.activeClass);
+    handleButtonsEvent(buttonElement) {
+        buttonElement.forEach((buttonEl) => {
+            const id = this.jsui.getAttr(buttonEl, this.options.toggleButtonAttr);
+            if (id) {
+                buttonEl.addEventListener(
+                    "click",
+                    (e) => {
+                        e.preventDefault();
+                        this.toggleSlide(id, true);
+                    },
+                    false
+                );
+            }
+        });
+    }
 
-        let buttonHasClass = '';
-        if(!button.classList[0]){
-         buttonHasClass = this.options.activeClass
-        }else{
-         buttonHasClass = button.classList[0];
-         buttonHasClass+= this.options.activeClass
-          button.classList.add(buttonHasClass);
+    handleDropdownSelectEvent(selectElements) {
+        selectElements.forEach((element) => {
+            element.addEventListener("change", (event) => {
+                const selectedOption = event.target.options[event.target.selectedIndex];
+                const id = this.jsui.getAttr(selectedOption, "data-tab-dropdown-item");
+                this.toggleSlide(id, true);
+            });
+        });
+    }
 
+    setItemState(id, isOpen) {
+        this.itemsState[id] = {
+            isOpen: isOpen,
+            isAnimating: false,
+        };
+    }
+
+    toggleSlide(id, isRunCallback = true) {
+        if (this.itemsState[id]?.isAnimating || (this.options.nameSpace == "tab" && this.itemsState[id]?.isOpen)) return;
+        if (!this.itemsState[id]?.isOpen) {
+            this.open(id, isRunCallback, this.options.isAnimation);
+        } else {
+            this.close(id, isRunCallback, this.options.isAnimation);
+        }
+    }
+
+    open(id, isRunCallback = true, isAnimation = true) {
+        if (!id) return;
+        if (!Object.prototype.hasOwnProperty.call(this.itemsState, id)) {
+            this.setItemState(id, false);
+        }
+        const toggleBody = document.querySelector(`[${this.options.toggleContentAttr}='${id}']`);
+        if (!toggleBody) {
+            return;
+        }
+        this.itemsState[id].isAnimating = true;
+
+        if (this.options.closeOthers) {
+            [].slice.call(this.toggleContentEls).forEach((contentEl) => {
+                const closeId = this.jsui.getAttr(contentEl, this.options.toggleContentAttr);
+                if (closeId && closeId !== id) this.close(closeId, false, isAnimation);
+            });
+        }
+        if (isRunCallback !== false) this.options.onSlideStart(true, id);
+
+        const clientHeight = this.getTargetHeight(toggleBody);
+        this.jsui.addStyle(toggleBody, "visibility", "visible");
+
+        this.toggleActiveClass(toggleBody, true);
+
+        const toggleButton = document.querySelectorAll(`[${this.options.toggleButtonAttr}='${id}']`);
+        if (toggleButton.length > 0) {
+            [].slice.call(toggleButton).forEach((button) => {
+                this.toggleActiveClass(button, true);
+                this.toggleAriaAttribute(button, "aria-expanded", true);
+            });
         }
 
-        if (button.hasAttribute("aria-expanded")) {
-          button.setAttribute("aria-expanded", "true");
+        if (isAnimation) {
+            this.jsui.addStyle(toggleBody, "overflow", "hidden");
+            this.jsui.addStyle(toggleBody, "transition", `${this.options.animationSpeed}ms ${this.options.cssEasing}`);
+            this.jsui.addStyle(toggleBody, "max-height", (clientHeight || "1000") + "px");
+            setTimeout(() => {
+                if (isRunCallback !== false) this.options.onSlideEnd(true, id);
+                this.jsui.addStyle(toggleBody, "overflow", "");
+                this.jsui.addStyle(toggleBody, "transition", "");
+                this.jsui.addStyle(toggleBody, "max-height", "none");
+                this.itemsState[id].isAnimating = false;
+            }, this.options.animationSpeed);
+        } else {
+            this.jsui.addStyle(toggleBody, "max-height", "none");
+            this.jsui.addStyle(toggleBody, "overflow", "");
+            this.itemsState[id].isAnimating = false;
         }
-      });
+        this.itemsState[id].isOpen = true;
+        this.toggleAriaAttribute(toggleBody, "aria-hidden", true);
     }
 
-    if (isAnimation) {
-      toggleBody.style.overflow = "hidden";
-      toggleBody.style.transition = `${this.options.animationSpeed}ms ${this.options.cssEasing}`;
-      toggleBody.style.maxHeight = (clientHeight || "1000") + "px";
-      setTimeout(() => {
-        if (isRunCallback !== false) this.options.onSlideEnd(true, id);
-        toggleBody.style.maxHeight = "none";
-        toggleBody.style.transition = "";
-        toggleBody.style.overflow = "";
-        this.itemsState[id].isAnimating = false;
-      }, this.options.animationSpeed);
-    } else {
-      toggleBody.style.maxHeight = "none";
-      toggleBody.style.overflow = "";
-      this.itemsState[id].isAnimating = false;
-    }
-    this.itemsState[id].isOpen = true;
-    if (toggleBody.hasAttribute("aria-hidden")) {
-      toggleBody.setAttribute("aria-hidden", "false");
-    }
-  }
-
-  close(id, isRunCallback = true, isAnimation = true) {
-    if (!id) return;
-    if (!Object.prototype.hasOwnProperty.call(this.itemsState, id)) {
-      this.setItemState(id, false);
-    }
-    this.itemsState[id].isAnimating = true;
-    if (isRunCallback !== false) this.options.onSlideStart(false, id);
-
-    const toggleBody = document.querySelector(`[${this.options.toggleContentAttr}='${id}']`);
-    toggleBody.style.overflow = "hidden";
-    toggleBody.classList.remove(this.options.activeClass);
-    toggleBody.style.maxHeight = toggleBody.clientHeight + "px";
-
-    setTimeout(() => {
-      toggleBody.style.maxHeight = "0px";
-    }, 5);
-
-    const toggleButton = document.querySelectorAll(`[${this.options.toggleButtonAttr}='${id}']`);
-    if (toggleButton.length > 0) {
-      [].slice.call(toggleButton).forEach((button) => {
-        button.classList.remove(this.options.activeClass);
-        if (button.hasAttribute("aria-expanded")) {
-          button.setAttribute("aria-expanded", "false");
+    close(id, isRunCallback = true, isAnimation = true) {
+        if (!id) return;
+        if (!Object.prototype.hasOwnProperty.call(this.itemsState, id)) {
+            this.setItemState(id, false);
         }
-      });
+        this.itemsState[id].isAnimating = true;
+        if (isRunCallback !== false) this.options.onSlideStart(false, id);
+
+        const toggleBody = document.querySelector(`[${this.options.toggleContentAttr}='${id}']`);
+        this.jsui.addStyle(toggleBody, "overflow", "hidden");
+        this.jsui.addStyle(toggleBody, "max-height", toggleBody.clientHeight + "px");
+
+        this.toggleActiveClass(toggleBody, false);
+
+        setTimeout(() => {
+            this.jsui.addStyle(toggleBody, "max-height", "0px");
+        }, 5);
+
+        const toggleButton = document.querySelectorAll(`[${this.options.toggleButtonAttr}='${id}']`);
+        if (toggleButton.length > 0) {
+            [].slice.call(toggleButton).forEach((button) => {
+                this.toggleActiveClass(button, false);
+                this.toggleAriaAttribute(button, "aria-expanded", false);
+            });
+        }
+
+        if (isAnimation) {
+            this.jsui.addStyle(toggleBody, "transition", `${this.options.animationSpeed}ms ${this.options.cssEasing}`);
+            setTimeout(() => {
+                if (isRunCallback !== false) this.options.onSlideEnd(false, id);
+                this.jsui.addStyle(toggleBody, "transition", "");
+                this.itemsState[id].isAnimating = false;
+                this.jsui.addStyle(toggleBody, "visibility", "hidden");
+            }, this.options.animationSpeed);
+        } else {
+            this.options.onSlideEnd(false, id);
+            this.itemsState[id].isAnimating = false;
+            this.jsui.addStyle(toggleBody, "visibility", "hidden");
+        }
+        if (Object.prototype.hasOwnProperty.call(this.itemsState, id)) {
+            this.itemsState[id].isOpen = false;
+        }
+        this.toggleAriaAttribute(toggleBody, "aria-hidden", false);
     }
 
-    if (isAnimation) {
-      toggleBody.style.transition = `${this.options.animationSpeed}ms ${this.options.cssEasing}`;
-      setTimeout(() => {
-        if (isRunCallback !== false) this.options.onSlideEnd(false, id);
-        toggleBody.style.transition = "";
-        this.itemsState[id].isAnimating = false;
-        toggleBody.style.visibility = "hidden";
-      }, this.options.animationSpeed);
-    } else {
-      this.options.onSlideEnd(false, id);
-      this.itemsState[id].isAnimating = false;
-      toggleBody.style.visibility = "hidden";
+    toggleActiveClass(toggleElement, active) {
+        const elementFilteredClass =
+            !toggleElement.classList[0] || toggleElement.classList[0].startsWith("--is-active") ? this.options.activeClass : toggleElement.classList[0] + this.options.activeClass;
+        if (active) {
+            this.jsui.addClass(toggleElement, elementFilteredClass);
+        } else {
+            this.jsui.removeClass(toggleElement, elementFilteredClass);
+        }
     }
-    if (Object.prototype.hasOwnProperty.call(this.itemsState, id)) {
-      this.itemsState[id].isOpen = false;
-    }
-    if (toggleBody.hasAttribute("aria-hidden")) {
-      toggleBody.setAttribute("aria-hidden", "true");
-    }
-  }
 
-  getTargetHeight(targetEl) {
-    if (!targetEl) return;
-    const cloneEl = targetEl.cloneNode(true);
-    const parentEl = targetEl.parentNode;
-    if (!parentEl) return;
-    const inputElements = [].slice.call(cloneEl.querySelectorAll("input[name]"));
-    if (inputElements.length !== 0) {
-      const suffix = "-" + new Date().getTime();
-      inputElements.forEach((input) => {
-        input.name += suffix;
-      });
+    toggleAriaAttribute(toggleElement, attribute, active) {
+        if (this.jsui.getAttr(toggleElement, attribute)) {
+            if (attribute === "aria-expanded") {
+                this.jsui.setAttr(toggleElement, attribute, active);
+            } else {
+                this.jsui.setAttr(toggleElement, attribute, !active);
+            }
+        }
     }
-    cloneEl.style.maxHeight = "none";
-    cloneEl.style.opacity = "0";
-    parentEl.appendChild(cloneEl);
-    const clientHeight = cloneEl.clientHeight;
-    parentEl.removeChild(cloneEl);
-    return clientHeight;
-  }
+
+    getTargetHeight(targetEl) {
+        if (!targetEl) return;
+        const cloneEl = targetEl.cloneNode(true);
+        const parentEl = targetEl.parentNode;
+        if (!parentEl) return;
+        const inputElements = [].slice.call(cloneEl.querySelectorAll("input[name]"));
+        if (inputElements.length !== 0) {
+            const suffix = "-" + new Date().getTime();
+            inputElements.forEach((input) => {
+                input.name += suffix;
+            });
+        }
+        cloneEl.style.maxHeight = "none";
+        cloneEl.style.opacity = "0";
+        parentEl.appendChild(cloneEl);
+        const clientHeight = cloneEl.clientHeight;
+        parentEl.removeChild(cloneEl);
+        return clientHeight;
+    }
 }
