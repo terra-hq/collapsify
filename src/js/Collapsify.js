@@ -232,4 +232,28 @@ export default class Collapsify {
         parentEl.removeChild(cloneEl);
         return clientHeight;
     }
+
+    destroy() {
+        buttonElement.forEach((buttonEl) => {
+            const id = this.jsui.getAttr(buttonEl, this.options.toggleButtonAttr);
+            if (id) {
+                buttonEl.addEventListener(
+                    "click",
+                    (e) => {
+                        e.preventDefault();
+                        this.toggleSlide(id, true);
+                    },
+                    false
+                );
+            }
+        });
+
+        selectElements.forEach((element) => {
+            element.addEventListener("change", (event) => {
+                const selectedOption = event.target.options[event.target.selectedIndex];
+                const id = this.jsui.getAttr(selectedOption, "data-tab-dropdown-item");
+                this.toggleSlide(id, true);
+            });
+        });
+    }
 }

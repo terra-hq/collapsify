@@ -13,7 +13,7 @@ var different = new Collapsify({
 });
 
 // @ts-ignore
-var different = new Collapsify({
+var accordion = new Collapsify({
     nameSpace: "accordion",
 });
 

@@ -1,0 +1,132 @@
+.c--tabs-a {
+    /* Start Header Style */
+    &__hd {
+        @media all and ($viewport-type: $tabletm) {
+            border-bottom: 0;
+        }
+
+        &__list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: 1fr;
+            grid-gap: 0;
+            position: relative;
+            bottom: -1px;
+
+            @media all and ($viewport-type: $tabletm) {
+                display: none;
+            }
+
+            &__list-item {
+                display: flex;
+                align-items: stretch;
+                width: auto;
+
+                &__link {
+                    text-decoration: none;
+                    text-align: center;
+                    width: 100%;
+                    @extend .f--font-d;
+                    color: map-get($color-options, e);
+                    opacity: 0.4;
+                    transition: all $time-b $ease-standard-a;
+                    position: relative;
+                    padding: $measure * 3 $measure * 2;
+                    border-bottom: 1px solid rgba(map-get($color-options, e), 0.4);
+
+                    /* hover foucs and active state */
+                    &:hover,
+                    &:focus,
+                    &--is-active {
+                        opacity: 1;
+                        border-bottom: 1px solid map-get($color-options, a);
+                    }
+                }
+            }
+        }
+
+        &__selector {
+            margin-top: $measure * 4;
+            position: relative;
+            width: 100%;
+            display: none;
+
+            @media all and ($viewport-type: $tabletm) {
+                display: block;
+            }
+
+            &::after {
+                content: "";
+                background-image: url("/assets/frontend/tabs-a/selector-arrow.png");
+                background-position: 100% 50%;
+                background-repeat: no-repeat;
+                background-size: 12px;
+                height: 100%;
+                position: absolute;
+                width: 12px;
+                top: 0;
+                pointer-events: none;
+                right: $measure;
+            }
+
+            &__item {
+                background: transparent;
+                position: relative;
+                -webkit-appearance: none;
+                appearance: none;
+                width: 100%;
+                @extend .f--font-d;
+                @extend .f--color-e;
+                font-weight: 400;
+                padding: $measure;
+                border-bottom: 1px solid map-get($color-options, a);
+                /* hover foucs and active state */
+                &:hover,
+                &:focus,
+                &--is-active {
+                    color: map-get($color-options, a);
+                    // border-color: map-get($color-options, e);
+                }
+                option {
+                    @extend .f--font-d;
+                    @extend .f--color-f;
+                    &:first-child {
+                        @extend .f--color-f;
+                    }
+                }
+            }
+        }
+    }
+
+    /* End Header Style */
+    /* Start Body Style*/
+    &__bd {
+        width: 100%;
+        &__item {
+            display: flex;
+            /* this should not be changed if possible*/
+            overflow: hidden;
+            max-height: 0;
+
+            &--is-active {
+                max-height: 99rem;
+                opacity: 1;
+            }
+
+            &__left-items {
+                display: flex;
+                flex-direction: column;
+                row-gap: $measure * 4;
+            }
+            &__right-items {
+                height: 100%;
+                @media all and ($viewport-type: $tabletm) {
+                    margin-top: $measure * 4;
+                }
+            }
+        }
+    }
+}
