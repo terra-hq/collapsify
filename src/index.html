@@ -234,7 +234,7 @@ includeResponsiveDropdown: true,
             </div>
             <div class="f--row">
                 <div class="f--col-12">
-                    <p class="f--font-e f--sp-d">Tabs with first tab active:</p>
+                    <p class="f--font-d f--sp-d">Tabs with first tab active:</p>
                     <div class="c--tabs-a">
                         <div class="c--tabs-a__hd">
                             <ul class="c--tabs-a__hd__list">
@@ -294,7 +294,7 @@ includeResponsiveDropdown: true,
             <hr />
             <div class="f--row">
                 <div class="f--col-12">
-                    <p class="f--font-e f--sp-d">Tabs with no inital tab active:</p>
+                    <p class="f--font-d f--sp-d">Tabs with no inital tab active:</p>
                     <div class="c--tabs-a">
                         <div class="c--tabs-a__hd">
                             <ul class="c--tabs-a__hd__list">
@@ -340,6 +340,88 @@ includeResponsiveDropdown: true,
                 </div>
             </div>
         </div>
+
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-12">
+                    <hr />
+                </div>
+            </div>
+        </div>
+
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-12">
+                    <p class="f--font-d f--sp-d">Tabs with Tiny Slider:</p>
+                    <div class="c--tabs-a">
+                        <div class="c--tabs-a__hd">
+                            <ul class="c--tabs-a__hd__list">
+                                <li class="c--tabs-a__hd__list__list-item">
+                                    <button class="c--tabs-a__hd__list__list-item__link js--select-tab" type="button" data-tabThird-control="tabContentThird-01" aria-expanded="false">Tab 01</button>
+                                </li>
+                                <li class="c--tabs-a__hd__list__list-item">
+                                    <button class="c--tabs-a__hd__list__list-item__link js--select-tab" type="button" data-tabThird-control="tabContentThird-02" aria-expanded="false">Tab 02</button>
+                                </li>
+                                <li class="c--tabs-a__hd__list__list-item">
+                                    <button class="c--tabs-a__hd__list__list-item__link js--select-tab" type="button" data-tabThird-control="tabContentThird-03" aria-expanded="false">Tab 03</button>
+                                </li>
+                            </ul>
+
+                            <div class="c--tabs-a__hd__selector">
+                                <select aria-label="tab selector" class="c--tabs-a__hd__selector__item js--select-item-c">
+                                    <option value="" disabled="" selected="">Select</option>
+                                    <option data-tabThird-dropdown-item="tabContentThird-01" value="tabThird--option-1">option 01</option>
+                                    <option data-tabThird-dropdown-item="tabContentThird-02" value="tabThird--option-2">option 02</option>
+                                    <option data-tabThird-dropdown-item="tabContentThird-03" value="tabThird--option-3">option 03</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="c--tabs-a__bd" data-tabThird-content="tabContentThird-01" aria-hidden="true">
+                            <p>
+                                Content First: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                itaque iste quam, asperiores aliquid illum optio atque quidem.
+                            </p>
+                        </div>
+                        <div class="c--tabs-a__bd" data-tabThird-content="tabContentThird-02" aria-hidden="true">
+                            <p>
+                                Content Second: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                itaque iste quam, asperiores aliquid illum optio atque quidem.
+                            </p>
+                        </div>
+                        <div class="c--tabs-a__bd" data-tabThird-content="tabContentThird-03" aria-hidden="true">
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css" />
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+                            <div class="c--slider-b">
+                                <div class="js--slider">
+                                    <div class="c--slider-b__wrapper__item">
+                                        <h4>Slide 01</h4>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                            itaque iste quam, asperiores aliquid illum optio atque quidem.
+                                        </p>
+                                    </div>
+                                    <div class="c--slider-b__wrapper__item">
+                                        <h4>Slide 02</h4>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                            itaque iste quam, asperiores aliquid illum optio atque quidem.
+                                        </p>
+                                    </div>
+                                    <div class="c--slider-b__wrapper__item">
+                                        <h4>Slide 03</h4>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                            itaque iste quam, asperiores aliquid illum optio atque quidem.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script type="module" src="./js/index.ts"></script>
     </body>
 </html>
