@@ -17,7 +17,7 @@
 
         <div class="f--container">
             <div class="f--row">
-                <div class="f--col-6">
+                <div class="f--col-6 f--col-tabletm-12">
                     <h3 class="f--font-c f--sp-d">Simple Collapse</h3>
                     <p class="f--font-e f--sp-d">It can start as expanded or collapsed. You just need to add/remove '--is-active' class and toggle aria attributes.</p>
                     <button class="c--btn-a c--btn-a--is-active" type="button" data-collapsify-control="simpleContent" aria-expanded="true">Show/Hide Content</button>
@@ -28,9 +28,9 @@
                         </p>
                     </div>
                 </div>
-                <div class="f--col-6">
+                <div class="f--col-6 f--col-tabletm-12">
                     <pre class="c--code-a">
-            <label class="c--code-a__label">JS</label>
+                        <label class="c--code-a__label">JS</label>
               <code class="c--code-a__content">
   var SimpleExample = new Collapsify()
               </code>
@@ -55,10 +55,9 @@
 
         <div class="f--container">
             <div class="f--row">
-                <div class="f--col-6">
+                <div class="f--col-6 f--col-tabletm-12">
                     <h3 class="f--font-c f--sp-d">Simple Collapse - Different data attributes name</h3>
-                    <h4 class="f--font-d f--sp-d">Same look and feel but different triggers</h4>
-                    <p class="f--font-e f--sp-d">Same collapse but now with nameSpace attribute set as 'different'.</p>
+                    <p class="f--font-e f--sp-d">Same look and feel but different triggers, collapse but now with nameSpace attribute set as 'different'.</p>
                     <button class="c--btn-a" type="button" data-different-control="simpleContent2" aria-expanded="false">Show/Hide Content</button>
                     <div class="c--content-a" data-different-content="simpleContent2" aria-hidden="true">
                         <p>
@@ -67,7 +66,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="f--col-6">
+                <div class="f--col-6 f--col-tabletm-12">
                     <pre class="c--code-a">
             <label class="c--code-a__label">JS</label>
               <code class="c--code-a__content">
@@ -96,7 +95,7 @@
 
         <div class="f--container">
             <div class="f--row">
-                <div class="f--col-6">
+                <div class="f--col-6 f--col-tabletm-12">
                     <h3 class="f--font-c f--sp-d">Nested Collapse</h3>
                     <p class="f--font-e f--sp-d">Here it is shown another collapse, but now one of the contents has its own nested triggerButton-content.</p>
                     <button type="button" class="c--btn-a" data-nested-control="content01" aria-expanded="false">Content 01</button>
@@ -154,16 +153,31 @@
     CONTENT:  data-{namespase}-content="{ID}" * only one element
  -->
                     <!-- basic -->
-                    <button class="c--btn-a" type="button" data-accordion-control="simpleContent-01" aria-expanded="false">Show/Hide Content 01</button>
-                    <div class="c--content-a" data-accordion-content="simpleContent-01" aria-hidden="true">... Content 01 ...</div>
+                    <button class="c--btn-a" type="button" data-accordion-control="simpleContent-01" aria-expanded="true">Content 01</button>
+                    <div class="c--content-a" data-accordion-content="simpleContent-01" aria-hidden="true">
+                        <p>
+                            First content : Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit repellat optio ab fugiat pariatur eius dolores omnis ullam nostrum ad vitae praesentium ex
+                            veniam veritatis consequatur, quidem consectetur nemo? Voluptatibus.
+                        </p>
+                    </div>
 
                     <!-- if add activeClass(def: "is-active"), Opened on init. -->
-                    <button class="c--btn-a c--btn-a--is-active" type="button" data-accordion-control="simpleContent-02" aria-expanded="true">Show/Hide Content 02</button>
-                    <div class="c--content-a c--content-a--is-active" data-accordion-content="simpleContent-02" aria-hidden="false">... Content 02 ...</div>
+                    <button class="c--btn-a c--btn-a--is-active" type="button" data-accordion-control="simpleContent-02" aria-expanded="true">Content 02</button>
+                    <div class="c--content-a c--content-a--is-active" data-accordion-content="simpleContent-02" aria-hidden="false">
+                        <p>
+                            Second content : Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit repellat optio ab fugiat pariatur eius dolores omnis ullam nostrum ad vitae praesentium ex
+                            veniam veritatis consequatur, quidem consectetur nemo? Voluptatibus.
+                        </p>
+                    </div>
 
                     <!-- can use nested accordion -->
-                    <button class="c--btn-a" type="button" data-accordion-control="simpleContent-03" aria-expanded="false">Show/Hide Content 03</button>
-                    <div class="c--content-a" data-accordion-content="simpleContent-03" aria-hidden="true">... Content 03 ...</div>
+                    <button class="c--btn-a" type="button" data-accordion-control="simpleContent-03" aria-expanded="false">Content 03</button>
+                    <div class="c--content-a" data-accordion-content="simpleContent-03" aria-hidden="true">
+                        <p>
+                            Third content : Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit repellat optio ab fugiat pariatur eius dolores omnis ullam nostrum ad vitae praesentium ex
+                            veniam veritatis consequatur, quidem consectetur nemo? Voluptatibus.
+                        </p>
+                    </div>
                 </div>
                 <div class="f--col-6">
                     <pre class="c--code-a">
@@ -193,24 +207,29 @@
         </div>
 
         <div class="f--container">
-            <h3 class="f--font-c f--sp-d">Tabs</h3>
-            <p class="f--font-e f--sp-d">Here you may include a new parameter: 'includeResponsiveDropdown'. It will add a new functionality for responsives screens.</p>
-            <div>
-                <pre class="c--code-a">
-<label class="c--code-a__label">JS</label>
-  <code class="c--code-a__content">
-    const tab = new Collapsify({
-      nameSpace: "tab",
-      closeOthers: true,
-      includeResponsiveDropdown: true,
-  });
-  </code>
-</pre>
-                <div class="c--note-a">
-                    <p>
-                        Add data attribute, button/content element.<br />
-                        Control Button: data-{different}-control="{ID}" * multiple elements Collapsible element: data-{different}-content="{ID}" * only one element
-                    </p>
+            <div class="f--row">
+                <div class="f--col-12">
+                    <pre class="c--code-a">
+                <label class="c--code-a__label">JS</label>
+                  <code class="c--code-a__content">
+const tab = new Collapsify({
+nameSpace: "tab",
+closeOthers: true,
+includeResponsiveDropdown: true,
+});
+                  </code>
+                </pre>
+                    <div class="c--note-a">
+                        <p>
+                            Add data attribute, button/content element.<br />
+                            Control Button: data-{different}-control="{ID}" * multiple elements Collapsible element: data-{different}-content="{ID}" * only one element
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="f--row">
+                <div class="f--col-12">
+                    <hr />
                 </div>
             </div>
             <div class="f--row">
@@ -246,12 +265,32 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="c--tabs-a__bd c--tabs-a__bd--is-active" data-tab-content="tabContent-01" aria-hidden="true">... Content 01 ...</div>
-                        <div class="c--tabs-a__bd" data-tab-content="tabContent-02" aria-hidden="true">... Content 02 ...</div>
-                        <div class="c--tabs-a__bd" data-tab-content="tabContent-03" aria-hidden="true">... Content 03 ...</div>
+                        <div class="c--tabs-a__bd c--tabs-a__bd--is-active" data-tab-content="tabContent-01" aria-hidden="true">
+                            <p>
+                                Content First: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                itaque iste quam, asperiores aliquid illum optio atque quidem.
+                            </p>
+                        </div>
+                        <div class="c--tabs-a__bd" data-tab-content="tabContent-02" aria-hidden="true">
+                            <p>
+                                Content Second: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                itaque iste quam, asperiores aliquid illum optio atque quidem.
+                            </p>
+                        </div>
+                        <div class="c--tabs-a__bd" data-tab-content="tabContent-03" aria-hidden="true">
+                            <p>
+                                Content Third: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                itaque iste quam, asperiores aliquid illum optio atque quidem.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div></div>
+        </div>
+
+        <div class="f--container">
             <hr />
             <div class="f--row">
                 <div class="f--col-12">
@@ -286,7 +325,6 @@
                 </div>
             </div>
         </div>
-
         <script type="module" src="./js/index.ts"></script>
     </body>
 </html>
