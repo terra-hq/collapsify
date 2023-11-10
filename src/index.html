@@ -162,8 +162,8 @@
                     </div>
 
                     <!-- if add activeClass(def: "is-active"), Opened on init. -->
-                    <button class="c--btn-a c--btn-a--is-active" type="button" data-accordion-control="simpleContent-02" aria-expanded="true">Content 02</button>
-                    <div class="c--content-a c--content-a--is-active" data-accordion-content="simpleContent-02" aria-hidden="false">
+                    <button class="c--btn-a" type="button" data-accordion-control="simpleContent-02" aria-expanded="true">Content 02</button>
+                    <div class="c--content-a" data-accordion-content="simpleContent-02" aria-hidden="false">
                         <p>
                             Second content : Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit repellat optio ab fugiat pariatur eius dolores omnis ullam nostrum ad vitae praesentium ex
                             veniam veritatis consequatur, quidem consectetur nemo? Voluptatibus.
@@ -214,8 +214,8 @@
                   <code class="c--code-a__content">
 const tab = new Collapsify({
 nameSpace: "tab",
-closeOthers: true,
-includeResponsiveDropdown: true,
+isTab: true,
+dropdownElement: HTMLElement,
 });
                   </code>
                 </pre>
