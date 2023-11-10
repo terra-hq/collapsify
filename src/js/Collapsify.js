@@ -59,32 +59,28 @@ export default class Collapsify {
         buttonElement.forEach((buttonEl) => {
             const id = this.jsui.getAttr(buttonEl, this.options.toggleButtonAttr);
             if (id) {
-                buttonEl.addEventListener("click", (event) => {
-                    this.handleClick(event, id);
-                });
-            }
-        });
-
-        buttonElement.forEach((buttonEl) => {
-            const id = this.jsui.getAttr(buttonEl, this.options.toggleButtonAttr);
-            if (id) {
-                buttonEl.removeEventListener("click", this.handleClick);
+                buttonEl.addEventListener("click", this.handleButtonClick);
             }
         });
     }
 
-    handleClick(e, id) {
-        e.preventDefault();
-        this.toggleSlide(id, true);
-    }
+    handleButtonClick = (event) => {
+        const id = this.jsui.getAttr(event.target, this.options.toggleButtonAttr);
+        if (id) {
+            event.preventDefault();
+            this.toggleSlide(id, true);
+        }
+    };
 
     handleDropdownSelectEvent(selectElement) {
-        selectElement.addEventListener("change", (event) => {
-            const selectedOption = event.target.options[event.target.selectedIndex];
-            const id = this.jsui.getAttr(selectedOption, this.options.toggleSelectOptionsAttr);
-            this.toggleSlide(id, true);
-        });
+        selectElement.addEventListener("change", this.handleSelectChange);
     }
+
+    handleSelectChange = (event) => {
+        const selectedOption = event.target.options[event.target.selectedIndex];
+        const id = this.jsui.getAttr(selectedOption, this.options.toggleSelectOptionsAttr);
+        this.toggleSlide(id, true);
+    };
 
     setItemState(id, isOpen) {
         this.itemsState[id] = {
@@ -239,28 +235,16 @@ export default class Collapsify {
         return clientHeight;
     }
 
-    destroy() {
+    destroy = () => {
         this.toggleButtonEls.forEach((buttonEl) => {
             const id = this.jsui.getAttr(buttonEl, this.options.toggleButtonAttr);
             if (id) {
-                buttonEl.removeEventListener(
-                    "click",
-                    (e) => {
-                        e.preventDefault();
-                        this.toggleSlide(id, true);
-                    },
-                    false
-                );
+                buttonEl.removeEventListener("click", this.handleButtonClick);
             }
         });
 
-        this.toggleSelectsEls = [].slice.call(document.querySelectorAll(`[${this.options.toggleSelectAttr}]`));
-        this.toggleSelectsEls.forEach((element) => {
-            element.removeEventListener("change", (event) => {
-                const selectedOption = event.target.options[event.target.selectedIndex];
-                const id = this.jsui.getAttr(selectedOption, "data-tab-dropdown-item");
-                this.toggleSlide(id, true);
-            });
-        });
-    }
+        if (this.options.toggleSelectElement) {
+            this.options.toggleSelectElement.removeEventListener("change", this.handleSelectChange);
+        }
+    };
 }
