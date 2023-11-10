@@ -29,7 +29,7 @@
                     text-decoration: none;
                     text-align: center;
                     width: 100%;
-                    @extend .f--font-d;
+                    @extend .f--font-e;
                     color: map-get($color-options, e);
                     opacity: 0.4;
                     transition: all $time-b $ease-standard-a;

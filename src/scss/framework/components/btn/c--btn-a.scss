@@ -2,8 +2,8 @@
     background:map-get($color-options, a );
     padding:$measure;
     color:map-get($color-options, b );
-    &.is-active{
-        background:red
+    &:hover{
+        background:map-get($color-options, f );
     }
     &--second{
         background:map-get($color-options, e );
