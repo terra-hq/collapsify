@@ -8,12 +8,14 @@ export default class Collapsify {
             nameSpace: _options && "nameSpace" in _options ? _options.nameSpace : "collapsify",
             toggleButtonAttr: `data-${nameSpace}-control`,
             toggleContentAttr: `data-${nameSpace}-content`,
-            toggleSelectAttr: _options && "includeResponsiveDropdown" in _options && `data-${nameSpace}-dropdown`,
+            toggleSelectOptionsAttr: _options && "dropdownElement" in _options && `data-${nameSpace}-dropdown-item`,
+            toggleSelectElement: _options && "dropdownElement" in _options && _options.dropdownElement,
             activeClass: "--is-active",
             isAnimation: true,
             closeOthers: true,
             animationSpeed: 400,
             cssEasing: "ease-in-out",
+            isTab: _options && "isTab" in _options,
             onSlideStart: () => {},
             onSlideEnd: () => {},
         };
@@ -31,9 +33,8 @@ export default class Collapsify {
     init() {
         this.initContentsState(this.toggleContentEls);
         this.handleButtonsEvent(this.toggleButtonEls);
-        if (this.options.toggleSelectAttr) {
-            this.toggleSelectsEls = [].slice.call(document.querySelectorAll(`[${this.options.toggleSelectAttr}]`));
-            this.handleDropdownSelectEvent(this.toggleSelectsEls);
+        if (this.options.toggleSelectElement) {
+            this.handleDropdownSelectEvent(this.options.toggleSelectElement);
         }
     }
 
@@ -58,25 +59,30 @@ export default class Collapsify {
         buttonElement.forEach((buttonEl) => {
             const id = this.jsui.getAttr(buttonEl, this.options.toggleButtonAttr);
             if (id) {
-                buttonEl.addEventListener(
-                    "click",
-                    (e) => {
-                        e.preventDefault();
-                        this.toggleSlide(id, true);
-                    },
-                    false
-                );
+                buttonEl.addEventListener("click", (event) => {
+                    this.handleClick(event, id);
+                });
+            }
+        });
+
+        buttonElement.forEach((buttonEl) => {
+            const id = this.jsui.getAttr(buttonEl, this.options.toggleButtonAttr);
+            if (id) {
+                buttonEl.removeEventListener("click", this.handleClick);
             }
         });
     }
 
-    handleDropdownSelectEvent(selectElements) {
-        selectElements.forEach((element) => {
-            element.addEventListener("change", (event) => {
-                const selectedOption = event.target.options[event.target.selectedIndex];
-                const id = this.jsui.getAttr(selectedOption, "data-tab-dropdown-item");
-                this.toggleSlide(id, true);
-            });
+    handleClick(e, id) {
+        e.preventDefault();
+        this.toggleSlide(id, true);
+    }
+
+    handleDropdownSelectEvent(selectElement) {
+        selectElement.addEventListener("change", (event) => {
+            const selectedOption = event.target.options[event.target.selectedIndex];
+            const id = this.jsui.getAttr(selectedOption, this.options.toggleSelectOptionsAttr);
+            this.toggleSlide(id, true);
         });
     }
 
@@ -88,7 +94,7 @@ export default class Collapsify {
     }
 
     toggleSlide(id, isRunCallback = true) {
-        if (this.itemsState[id]?.isAnimating || (this.options.nameSpace == "tab" && this.itemsState[id]?.isOpen)) return;
+        if (this.itemsState[id]?.isAnimating || (this.options.isTab && this.itemsState[id]?.isOpen)) return;
         if (!this.itemsState[id]?.isOpen) {
             this.open(id, isRunCallback, this.options.isAnimation);
         } else {
@@ -234,10 +240,10 @@ export default class Collapsify {
     }
 
     destroy() {
-        buttonElement.forEach((buttonEl) => {
+        this.toggleButtonEls.forEach((buttonEl) => {
             const id = this.jsui.getAttr(buttonEl, this.options.toggleButtonAttr);
             if (id) {
-                buttonEl.addEventListener(
+                buttonEl.removeEventListener(
                     "click",
                     (e) => {
                         e.preventDefault();
@@ -248,8 +254,9 @@ export default class Collapsify {
             }
         });
 
-        selectElements.forEach((element) => {
-            element.addEventListener("change", (event) => {
+        this.toggleSelectsEls = [].slice.call(document.querySelectorAll(`[${this.options.toggleSelectAttr}]`));
+        this.toggleSelectsEls.forEach((element) => {
+            element.removeEventListener("change", (event) => {
                 const selectedOption = event.target.options[event.target.selectedIndex];
                 const id = this.jsui.getAttr(selectedOption, "data-tab-dropdown-item");
                 this.toggleSlide(id, true);

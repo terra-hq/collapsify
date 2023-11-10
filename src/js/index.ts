@@ -27,5 +27,14 @@ const nested = new Collapsify({
 const tab = new Collapsify({
     nameSpace: "tab",
     closeOthers: true,
-    includeResponsiveDropdown: true,
+    isTab: true,
+    dropdownElement: document.querySelector(".js--select-item-a"),
+});
+
+// @ts-ignore
+const tabTwo = new Collapsify({
+    nameSpace: "tabTwo",
+    closeOthers: true,
+    isTab: true,
+    dropdownElement: document.querySelector(".js--select-item-b"),
 });

@@ -3,40 +3,39 @@
 */
 
 // /* Core Colors */
-$color-a: #0F0F0F; 
-$color-b: #FEFEFE; 
-$color-c: #F7F8F4; 
+$color-a: #0f0f0f;
+$color-b: #fefefe;
+$color-c: #f7f8f4;
 
 /* Accent Color */
-$color-d: #7CE55E;
-$color-e: #2D9F66; 
-$color-f: #429ED6;
-$color-g: #FDB335;
-$color-h: #F76E4A;
-$color-i: #F58DD7;
+$color-d: #7ce55e;
+$color-e: #2d9f66;
+$color-f: #429ed6;
+$color-g: #fdb335;
+$color-h: #f76e4a;
+$color-i: #f58dd7;
 
 $color-options: (
-  a: $color-a,
-  b: $color-b,
-  c: $color-c,
-  d: $color-d,
-  e: $color-e,
-  f: $color-f,
-  g: $color-g,
-  h: $color-h,
-  i: $color-i,
+    a: $color-a,
+    b: $color-b,
+    c: $color-c,
+    d: $color-d,
+    e: $color-e,
+    f: $color-f,
+    g: $color-g,
+    h: $color-h,
+    i: $color-i,
 );
 
 $colorbg-options: (
-  a: $color-a,
-  b: $color-b,
-  c: $color-c,
-  d: $color-d,
-  e: $color-e,
-);  
+    a: $color-a,
+    b: $color-b,
+    c: $color-c,
+    d: $color-d,
+    e: $color-e,
+);
 
-$type-a:'Uncut Sans', sans-serif;
-
+$type-a: "Uncut Sans", sans-serif;
 
 $line-height: 1.5;
 /* Grid */

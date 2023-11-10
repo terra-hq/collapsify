@@ -29,8 +29,8 @@
                     text-decoration: none;
                     text-align: center;
                     width: 100%;
-                    @extend .f--font-d;
-                    color: map-get($color-options, e);
+                    @extend .f--font-c;
+                    color: map-get($color-options, g);
                     opacity: 0.4;
                     transition: all $time-b $ease-standard-a;
                     position: relative;
