@@ -11,13 +11,13 @@ export default class Collapsify {
             toggleSelectOptionsAttr: _options && "dropdownElement" in _options && `data-${nameSpace}-dropdown-item`,
             toggleSelectElement: _options && "dropdownElement" in _options && _options.dropdownElement,
             activeClass: "--is-active",
-            isAnimation: true,
-            closeOthers: true,
-            animationSpeed: 400,
-            cssEasing: "ease-in-out",
+            isAnimation: _options && "isAnimation" in _options ? _options.isAnimation : true,
+            closeOthers: _options && "closeOthers" in _options ? _options.closeOthers : true,
+            animationSpeed: _options && "animationSpeed" in _options ? _options.animationSpeed : 400,
+            cssEasing: _options && "cssEasing" in _options ? _options.cssEasing : "ease-in-out",
             isTab: _options && "isTab" in _options,
-            onSlideStart: () => {},
-            onSlideEnd: () => {},
+            onSlideStart: _options && "onSlideStart" in _options && _options.onSlideStart,
+            onSlideEnd: _options && "onSlideEnd" in _options && _options.onSlideEnd,
         };
         this.options = {
             ...defaultOptions,
@@ -115,7 +115,7 @@ export default class Collapsify {
                 if (closeId && closeId !== id) this.close(closeId, false, isAnimation);
             });
         }
-        if (isRunCallback !== false) this.options.onSlideStart(true, id);
+        if (isRunCallback !== false && this.options.onSlideStart) this.options.onSlideStart(true, id);
 
         const clientHeight = this.getTargetHeight(toggleBody);
         this.jsui.addStyle(toggleBody, "visibility", "visible");
@@ -135,7 +135,7 @@ export default class Collapsify {
             this.jsui.addStyle(toggleBody, "transition", `${this.options.animationSpeed}ms ${this.options.cssEasing}`);
             this.jsui.addStyle(toggleBody, "max-height", (clientHeight || "1000") + "px");
             setTimeout(() => {
-                if (isRunCallback !== false) this.options.onSlideEnd(true, id);
+                if (isRunCallback !== false && this.options.onSlideEnd) this.options.onSlideEnd(true, id);
                 this.jsui.addStyle(toggleBody, "overflow", "");
                 this.jsui.addStyle(toggleBody, "transition", "");
                 this.jsui.addStyle(toggleBody, "max-height", "none");
@@ -156,7 +156,7 @@ export default class Collapsify {
             this.setItemState(id, false);
         }
         this.itemsState[id].isAnimating = true;
-        if (isRunCallback !== false) this.options.onSlideStart(false, id);
+        if (isRunCallback !== false && this.options.onSlideStart) this.options.onSlideStart(false, id);
 
         const toggleBody = document.querySelector(`[${this.options.toggleContentAttr}='${id}']`);
         this.jsui.addStyle(toggleBody, "overflow", "hidden");
@@ -179,13 +179,13 @@ export default class Collapsify {
         if (isAnimation) {
             this.jsui.addStyle(toggleBody, "transition", `${this.options.animationSpeed}ms ${this.options.cssEasing}`);
             setTimeout(() => {
-                if (isRunCallback !== false) this.options.onSlideEnd(false, id);
+                if (isRunCallback !== false && this.options.onSlideEnd) this.options.onSlideEnd(false, id);
                 this.jsui.addStyle(toggleBody, "transition", "");
                 this.itemsState[id].isAnimating = false;
                 this.jsui.addStyle(toggleBody, "visibility", "hidden");
             }, this.options.animationSpeed);
         } else {
-            this.options.onSlideEnd(false, id);
+            this.options.onSlideEnd && this.options.onSlideEnd(false, id);
             this.itemsState[id].isAnimating = false;
             this.jsui.addStyle(toggleBody, "visibility", "hidden");
         }

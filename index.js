@@ -1,2 +1,1 @@
-
-module.exports = require('./src/js/Collapsify.ts');
+module.exports = require("./src/js/Collapsify.js");
