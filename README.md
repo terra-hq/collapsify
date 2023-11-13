@@ -48,22 +48,19 @@ new Collapsify(options);
 
 ## Options
 
-| Option Name       | Type   | Default                   | Desc                                                        |
-| ----------------- | ------ | ------------------------- | ----------------------------------------------------------- |
-| nameSpace         | string | "collapsify"              | Set namespace both "toggleButtonAttr" & "toggleContentAttr" |
-| toggleButtonAttr  | string | "data-collapsify-control" | data attribute for Button Element                           |
-| toggleContentAttr | string | "data-collapsify-content" | data attribute for Content                                  |
-
-Element
-| dropdownElement | HTMLSelectElement | "null" | HTML dropdown element for tablets/mobiles
-Element |
-| activeClass | string | "is-active" | Add class on opened Element |
-| isAnimation | boolean | true | animation Slide |
-| closeOthers | boolean | true | Close others Content |
-| animationSpeed | number | 400 | css transition duration(ms) |
-| cssEasing | string | "ease-in-out" | css transition easing (only isAnimation:true) |
-| onSlideStart | (isOpen:boolean,contentID:string)=> void | () => void | Callback on Open/Close Animation Start <br> @param {Boolean} isOpen <br> @param {String} contentID \* Don't ID Attribute |
-| onSlideEnd | (isOpen:boolean,contentID:string)=> void | () => void | Callback on Open/Close Animation End <br> @param {Boolean} isOpen <br> @param {String} contentID \* Don't ID Attribute |
+| Option Name       | Type                                     | Default                   | Desc                                                                                                                     |
+| ----------------- | ---------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| nameSpace         | string                                   | "collapsify"              | Set namespace both "toggleButtonAttr" & "toggleContentAttr"                                                              |
+| toggleButtonAttr  | string                                   | "data-collapsify-control" | data attribute for Button Element                                                                                        |
+| toggleContentAttr | string                                   | "data-collapsify-content" | data attribute for Content                                                                                               |
+| dropdownElement   | HTMLSelectElement                        | "null"                    | HTML dropdown element for tablets/mobiles                                                                                |
+| activeClass       | string                                   | "is-active"               | Add class on opened Element                                                                                              |
+| isAnimation       | boolean                                  | true                      | animation Slide                                                                                                          |
+| closeOthers       | boolean                                  | true                      | Close others Content                                                                                                     |
+| animationSpeed    | number                                   | 400                       | css transition duration(ms)                                                                                              |
+| cssEasing         | string                                   | "ease-in-out"             | css transition easing (only isAnimation:true)                                                                            |
+| onSlideStart      | (isOpen:boolean,contentID:string)=> void | () => void                | Callback on Open/Close Animation Start <br> @param {Boolean} isOpen <br> @param {String} contentID \* Don't ID Attribute |
+| onSlideEnd        | (isOpen:boolean,contentID:string)=> void | () => void                | Callback on Open/Close Animation End <br> @param {Boolean} isOpen <br> @param {String} contentID \* Don't ID Attribute   |
 
 ## Methods
 
