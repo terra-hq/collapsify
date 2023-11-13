@@ -39,7 +39,7 @@ const tabTwo = new Collapsify({
 });
 
 // @ts-ignore
-var slider = null;
+var sliderInstances = {};
 
 // @ts-ignore
 const tabThird = new Collapsify({
@@ -52,8 +52,8 @@ const tabThird = new Collapsify({
         const contentEl = document.querySelector(`[data-tabThird-content='${contentID}']`);
         if (isOpen && contentEl?.querySelector(".js--slider")) {
             // @ts-ignore
-            slider = tns({
-                container: ".js--slider",
+            sliderInstances[contentID] = tns({
+                container: contentEl?.querySelector(".js--slider"),
                 autoplay: true,
                 loop: true,
                 mode: "gallery",
@@ -71,6 +71,7 @@ const tabThird = new Collapsify({
                 preventScrollOnTouch: "auto",
                 touch: false,
             });
+            console.log("init", contentID);
         }
     },
     // @ts-ignore
@@ -78,8 +79,12 @@ const tabThird = new Collapsify({
         const contentElements = [].slice.call(document.querySelectorAll(`[data-tabThird-content]`));
         contentElements.forEach((contentElement) => {
             // @ts-ignore
-            if (contentElement.getAttribute("data-tabThird-content") != contentID && contentElement.querySelector(".js--slider") && slider?.version) {
-                slider.destroy();
+            var id = contentElement.getAttribute("data-tabThird-content");
+            // @ts-ignore
+            if (id != contentID && contentElement.querySelector(".js--slider") && sliderInstances[id]?.version) {
+                // @ts-ignore
+                sliderInstances[id].destroy();
+                console.log("destroy", id);
             }
         });
     },
