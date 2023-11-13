@@ -4,7 +4,7 @@ import "./../scss/index.scss";
 import Collapsify from "./Collapsify.js";
 
 // @ts-ignore
-var SimpleExample = new Collapsify({});
+var SimpleExample = new Collapsify();
 
 // @ts-ignore
 var different = new Collapsify({
