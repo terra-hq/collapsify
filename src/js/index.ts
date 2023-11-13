@@ -50,14 +50,6 @@ const tabThird = new Collapsify({
     // @ts-ignore
     onSlideStart: (isOpen, contentID) => {
         const contentEl = document.querySelector(`[data-tabThird-content='${contentID}']`);
-        if (!isOpen && contentEl?.querySelector(".js--slider")) {
-            // @ts-ignore
-            slider.destroy();
-        }
-    },
-    // @ts-ignore
-    onSlideEnd: (isOpen, contentID) => {
-        const contentEl = document.querySelector(`[data-tabThird-content='${contentID}']`);
         if (isOpen && contentEl?.querySelector(".js--slider")) {
             // @ts-ignore
             slider = tns({
@@ -80,5 +72,15 @@ const tabThird = new Collapsify({
                 touch: false,
             });
         }
+    },
+    // @ts-ignore
+    onSlideEnd: (isOpen, contentID) => {
+        const contentElements = [].slice.call(document.querySelectorAll(`[data-tabThird-content]`));
+        contentElements.forEach((contentElement) => {
+            // @ts-ignore
+            if (contentElement.getAttribute("data-tabThird-content") != contentID && contentElement.querySelector(".js--slider") && slider?.version) {
+                slider.destroy();
+            }
+        });
     },
 });

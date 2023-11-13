@@ -390,13 +390,22 @@
                         <div class="c--tabs-a__bd" data-tabThird-content="tabThirdContent-01" aria-hidden="true">
                             <p>
                                 Content First: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
-                                itaque iste quam, asperiores aliquid illum optio atque quidem.
+                                itaque iste quam, asperiores aliquid illum optio atque quidem. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui itaque iste
+                                quam, asperiores aliquid illum optio atque quidem. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui itaque iste quam,
+                                asperiores aliquid illum optio atque quidem. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui itaque iste quam, asperiores
+                                aliquid illum optio atque quidem.
                             </p>
                         </div>
                         <div class="c--tabs-a__bd" data-tabThird-content="tabThirdContent-02" aria-hidden="true">
                             <p>
                                 Content Second: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
-                                itaque iste quam, asperiores aliquid illum optio atque quidem.
+                                itaque iste quam, asperiores aliquid illum optio atque quidem. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui itaque iste
+                                quam, asperiores aliquid illum optio atque quidem. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui itaque iste quam,
+                                asperiores aliquid illum optio atque quidem. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui itaque iste quam, asperiores
+                                aliquid illum optio atque quidem. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui itaque iste quam, asperiores aliquid
+                                illum optio atque quidem. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui itaque iste quam, asperiores aliquid illum optio
+                                atque quidem. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui itaque iste quam, asperiores aliquid illum optio atque
+                                quidem.
                             </p>
                         </div>
                         <div class="c--tabs-a__bd" data-tabThird-content="tabThirdContent-03" aria-hidden="true">
@@ -436,19 +445,23 @@
     onSlideStart: (isOpen, contentID) => {
     const contentEl = 
     document.querySelector(`[data-tabThird-content='${contentID}']`);
-    if (!isOpen && contentEl?.querySelector(".js--slider")) {
-        slider.destroy();
-    }
-    },
-    onSlideEnd: (isOpen, contentID) => {
-    const contentEl = 
-    document.querySelector(`[data-tabThird-content='${contentID}']`);
     if (isOpen && contentEl?.querySelector(".js--slider")) {
         slider = tns({
             container: ".js--slider",
             ...
         });
     }
+    },
+    onSlideEnd: (isOpen, contentID) => {
+    const contentElements = 
+    [].slice.call(document.querySelectorAll(`[data-tabThird-content]`));
+    contentElements.forEach((contentElement) => {
+    if (contentElement.getAttribute("data-tabThird-content") != contentID
+        && contentElement.querySelector(".js--slider")
+        && slider?.version) {
+        slider.destroy();
+    }
+    });
     }
     });
                   </code>
