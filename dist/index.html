@@ -1,19 +1,517 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
-    <script type="module" crossorigin src="/assets/index-861c094d.js"></script>
-    <link rel="stylesheet" href="/assets/index-380a546c.css">
-  </head>
-  <body>
-    <img src="/assets/typescript-f6ead1af.svg" width="300" alt="">
-    <p>this is a test</p>
-    <div style="background-image:url('/assets/mountain-8aeab039.png'); height:300px"></div>
-    <div id="app"></div>
-    <a href="/about.html">About link</a>
-    
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Andres Clua - Starter Vite</title>
+      <script type="module" crossorigin src="/assets/main-8f4eff93.js"></script>
+      <link rel="stylesheet" href="/assets/index-531499c6.css">
+    </head>
+    <body>
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-12">
+                    <div class="f--font-a f--sp-a f--mt-3">Collapsify <span class="f--font-c">By Terra</span></div>
+                    <ul class="f--font-e f--mt-3 f--mb-5">
+                        <li>nameSpace (string) = collapsify: the data attributes keyword.</li>
+                        <li>dropdownElement (HTMLElement): the select element to use for tablets/mobiles.</li>
+                        <li>isAnimation (boolean) = true: include animated transitions between content.</li>
+                        <li>animationSpeed (number) = 400: transitions speed.</li>
+                        <li>cssEasing (string) = ease-in-out: type of animation.</li>
+                        <li>closeOthers (boolean) = true: define if the rest of the contents would close or not when you click on one of them.</li>
+                        <li>isTab (boolean) = true: set to true if it includes tabs.</li>
+                        <li>onSlideStart (function): callback to execute once transition starts.</li>
+                        <li>onSlideEnd (function): callback to execute once transition ends.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-12">
+                    <hr />
+                </div>
+            </div>
+        </div>
+
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-6 f--col-tabletm-12">
+                    <h3 class="f--font-c f--sp-d">Simple Collapse</h3>
+                    <p class="f--font-e f--sp-d">It can start as expanded or collapsed. You just need to add/remove '--is-active' class and toggle aria attributes.</p>
+                    <button class="c--btn-a c--btn-a--is-active" type="button" data-collapsify-control="simpleContent" aria-expanded="true">Show/Hide Content</button>
+                    <div class="c--content-a c--content-a--is-active" data-collapsify-content="simpleContent" aria-hidden="false">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea deleniti nisi maxime sequi corporis labore repellat impedit, id vel, esse ad, culpa praesentium? Nobis quam
+                            fugiat natus, at nisi cumque.
+                        </p>
+                    </div>
+                </div>
+                <div class="f--col-6 f--col-tabletm-12">
+                    <pre class="c--code-a">
+                        <label class="c--code-a__label">JS</label>
+              <code class="c--code-a__content">
+    var SimpleExample = new Collapsify()
+              </code>
+          </pre>
+                    <div class="c--note-a">
+                        <p>
+                            Data attributes (ID):<br />
+                            Trigger elements -> data-{nameSpace}-control<br />
+                            Content elements -> data-{nameSpace}-content<br />
+                            - nameSpace default value: 'collapsify'
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-12">
+                    <hr />
+                </div>
+            </div>
+        </div>
+
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-6 f--col-tabletm-12">
+                    <h3 class="f--font-c f--sp-d">Simple Collapse 2</h3>
+                    <p class="f--font-e f--sp-d">Same look and feel but different triggers, collapse but now with nameSpace attribute set as 'different'.</p>
+                    <button class="c--btn-a" type="button" data-different-control="simpleContent2" aria-expanded="false">Show/Hide Content</button>
+                    <div class="c--content-a" data-different-content="simpleContent2" aria-hidden="true">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea deleniti nisi maxime sequi corporis labore repellat impedit, id vel, esse ad, culpa praesentium? Nobis quam
+                            fugiat natus, at nisi cumque.
+                        </p>
+                    </div>
+                </div>
+                <div class="f--col-6 f--col-tabletm-12">
+                    <pre class="c--code-a">
+            <label class="c--code-a__label">JS</label>
+              <code class="c--code-a__content">
+    var different = new Collapsify({
+        nameSpace:'different',
+    })
+              </code>
+          </pre>
+                    <div class="c--note-a">
+                        <p>
+                            Data attributes (ID):<br />
+                            Trigger elements -> data-{nameSpace}-control<br />
+                            Content elements -> data-{nameSpace}-content<br />
+                            - nameSpace value: 'different'
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-12">
+                    <hr />
+                </div>
+            </div>
+        </div>
+
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-6 f--col-tabletm-12">
+                    <h3 class="f--font-c f--sp-d">Nested Collapse</h3>
+                    <p class="f--font-e f--sp-d">Here it is shown another collapse, but now one of the contents has its own nested triggerButton-content.</p>
+                    <button type="button" class="c--btn-a" data-nested-control="content01" aria-expanded="false">Content 01</button>
+                    <div data-nested-content="content01" aria-hidden="true">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <button type="button" class="c--btn-a" data-nested-control="content01-child" aria-expanded="true">Content 01 Child</button>
+                        <div data-nested-content="content01-child" aria-hidden="true">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                    </div>
+                    <button type="button" class="c--btn-a u--display-block" data-nested-control="content02" aria-expanded="false">Content 02</button>
+                    <div id="nestedCotent02" data-nested-content="content02" aria-hidden="true">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<br />
+                            Utenim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis auteirure<br />
+                            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecatcupidatat<br />
+                            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br /><br />
+                        </p>
+                    </div>
+                </div>
+                <div class="f--col-6 f--col-tabletm-12">
+                    <pre class="c--code-a">
+            <label class="c--code-a__label">JS</label>
+              <code class="c--code-a__content">
+    var nested = new Collapsify({
+        nameSpace: "nested",
+        closeOthers: false,
+    });
+              </code>
+          </pre>
+                    <div class="c--note-a">
+                        <p>'closeOthers' argument will define if the rest of the contents would close or not when you click on one of them.<br /></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-12">
+                    <hr />
+                </div>
+            </div>
+        </div>
+
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-6 f--col-tabletm-12">
+                    <h3 class="f--font-c f--sp-d">Accordion</h3>
+                    <p class="f--font-e f--sp-d">It works as a classic accordion component. The same 'closeOthers' attribute functionality applies here too.</p>
+                    <button class="c--btn-a" type="button" data-accordion-control="simpleContent-01" aria-expanded="true">Content 01</button>
+                    <div class="c--content-a" data-accordion-content="simpleContent-01" aria-hidden="true">
+                        <p>
+                            First content : Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit repellat optio ab fugiat pariatur eius dolores omnis ullam nostrum ad vitae praesentium ex
+                            veniam veritatis consequatur, quidem consectetur nemo? Voluptatibus.
+                        </p>
+                    </div>
+
+                    <button class="c--btn-a" type="button" data-accordion-control="simpleContent-02" aria-expanded="true">Content 02</button>
+                    <div class="c--content-a" data-accordion-content="simpleContent-02" aria-hidden="false">
+                        <p>
+                            Second content : Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit repellat optio ab fugiat pariatur eius dolores omnis ullam nostrum ad vitae praesentium ex
+                            veniam veritatis consequatur, quidem consectetur nemo? Voluptatibus.
+                        </p>
+                    </div>
+
+                    <button class="c--btn-a" type="button" data-accordion-control="simpleContent-03" aria-expanded="false">Content 03</button>
+                    <div class="c--content-a" data-accordion-content="simpleContent-03" aria-hidden="true">
+                        <p>
+                            Third content : Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit repellat optio ab fugiat pariatur eius dolores omnis ullam nostrum ad vitae praesentium ex
+                            veniam veritatis consequatur, quidem consectetur nemo? Voluptatibus.
+                        </p>
+                    </div>
+                </div>
+                <div class="f--col-6 f--col-tabletm-12">
+                    <pre class="c--code-a">
+          <label class="c--code-a__label">JS</label>
+            <code class="c--code-a__content">
+    var accordion = new Collapsify({
+        nameSpace: "accordion",
+    });
+            </code>
+        </pre>
+                    <div class="c--note-a">
+                        <p>
+                            Data attributes (ID):<br />
+                            Trigger elements -> data-{nameSpace}-control<br />
+                            Content elements -> data-{nameSpace}-content<br />
+                            - nameSpace value: 'accordion'
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-12">
+                    <hr />
+                </div>
+            </div>
+        </div>
+
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-6 f--col-tabletm-12">
+                    <h3 class="f--font-c f--sp-d">Tabs - Initial active tab</h3>
+                    <div class="c--tabs-a">
+                        <div class="c--tabs-a__hd">
+                            <ul class="c--tabs-a__hd__list">
+                                <li class="c--tabs-a__hd__list__list-item">
+                                    <button
+                                        class="c--tabs-a__hd__list__list-item__link c--tabs-a__hd__list__list-item__link--is-active js--select-tab"
+                                        type="button"
+                                        data-tab-control="tabContent-01"
+                                        aria-expanded="false"
+                                    >
+                                        Tab 01
+                                    </button>
+                                </li>
+                                <li class="c--tabs-a__hd__list__list-item">
+                                    <button class="c--tabs-a__hd__list__list-item__link js--select-tab" type="button" data-tab-control="tabContent-02" aria-expanded="false">Tab 02</button>
+                                </li>
+                                <li class="c--tabs-a__hd__list__list-item">
+                                    <button class="c--tabs-a__hd__list__list-item__link js--select-tab" type="button" data-tab-control="tabContent-03" aria-expanded="false">Tab 03</button>
+                                </li>
+                            </ul>
+
+                            <div class="c--tabs-a__hd__selector">
+                                <select aria-label="tab selector" class="c--tabs-a__hd__selector__item js--select-item-a">
+                                    <option value="" disabled="" selected="">Select</option>
+                                    <option data-tab-dropdown-item="tabContent-01" value="">option 01</option>
+                                    <option data-tab-dropdown-item="tabContent-02" value="">option 02</option>
+                                    <option data-tab-dropdown-item="tabContent-03" value="">option 03</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="c--tabs-a__bd c--tabs-a__bd--is-active" data-tab-content="tabContent-01" aria-hidden="true">
+                            <p>
+                                Content First: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                itaque iste quam, asperiores aliquid illum optio atque quidem.
+                            </p>
+                        </div>
+                        <div class="c--tabs-a__bd" data-tab-content="tabContent-02" aria-hidden="true">
+                            <p>
+                                Content Second: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                itaque iste quam, asperiores aliquid illum optio atque quidem.
+                            </p>
+                        </div>
+                        <div class="c--tabs-a__bd" data-tab-content="tabContent-03" aria-hidden="true">
+                            <p>
+                                Content Third: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                itaque iste quam, asperiores aliquid illum optio atque quidem.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="f--col-6 f--col-tabletm-12">
+                    <pre class="c--code-a">
+                <label class="c--code-a__label">JS</label>
+                  <code class="c--code-a__content">
+    var tab = new Collapsify({
+    nameSpace: "tab",
+    isTab: true,
+    dropdownElement: HTMLElement,
+    });
+                  </code>
+                </pre>
+                    <div class="c--note-a">
+                        <p>
+                            Common tabs functionality. Two new attributes to take into consideration:<br />
+                            - isTab: boolean<br />
+                            - dropdownElement: HTMLSelectElement for tablets/mobiles devices.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-12">
+                    <hr />
+                </div>
+            </div>
+        </div>
+
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-6 f--col-tabletm-12">
+                    <h3 class="f--font-c f--sp-d">Tabs 2 - No initial active tabs</h3>
+                    <div class="c--tabs-a">
+                        <div class="c--tabs-a__hd">
+                            <ul class="c--tabs-a__hd__list">
+                                <li class="c--tabs-a__hd__list__list-item">
+                                    <button class="c--tabs-a__hd__list__list-item__link js--select-tab" type="button" data-tabTwo-control="tabTwoContent-01" aria-expanded="false">Tab 01</button>
+                                </li>
+                                <li class="c--tabs-a__hd__list__list-item">
+                                    <button class="c--tabs-a__hd__list__list-item__link js--select-tab" type="button" data-tabTwo-control="tabTwoContent-02" aria-expanded="false">Tab 02</button>
+                                </li>
+                                <li class="c--tabs-a__hd__list__list-item">
+                                    <button class="c--tabs-a__hd__list__list-item__link js--select-tab" type="button" data-tabTwo-control="tabTwoContent-03" aria-expanded="false">Tab 03</button>
+                                </li>
+                            </ul>
+
+                            <div class="c--tabs-a__hd__selector">
+                                <select aria-label="tab selector" class="c--tabs-a__hd__selector__item js--select-item-b">
+                                    <option value="" disabled="" selected="">Select</option>
+                                    <option data-tabTwo-dropdown-item="tabTwoContent-01" value="">option 01</option>
+                                    <option data-tabTwo-dropdown-item="tabTwoContent-02" value="">option 02</option>
+                                    <option data-tabTwo-dropdown-item="tabTwoContent-03" value="">option 03</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="c--tabs-a__bd" data-tabTwo-content="tabTwoContent-01" aria-hidden="true">
+                            <p>
+                                Content First: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                itaque iste quam, asperiores aliquid illum optio atque quidem.
+                            </p>
+                        </div>
+                        <div class="c--tabs-a__bd" data-tabTwo-content="tabTwoContent-02" aria-hidden="true">
+                            <p>
+                                Content Second: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                itaque iste quam, asperiores aliquid illum optio atque quidem.
+                            </p>
+                        </div>
+                        <div class="c--tabs-a__bd" data-tabTwo-content="tabTwoContent-03" aria-hidden="true">
+                            <p>
+                                Content Third: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                itaque iste quam, asperiores aliquid illum optio atque quidem.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="f--col-6 f--col-tabletm-12">
+                    <pre class="c--code-a">
+                <label class="c--code-a__label">JS</label>
+                  <code class="c--code-a__content">
+    var tab = new Collapsify({
+    nameSpace: "tabTwo",
+    isTab: true,
+    dropdownElement: HTMLElement,
+    });
+                  </code>
+                </pre>
+                    <div class="c--note-a">
+                        <p>Another tabs example but this time with no initial active elements.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-12">
+                    <hr />
+                </div>
+            </div>
+        </div>
+
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-6 f--col-tabletm-12">
+                    <h3 class="f--font-c f--sp-d">Tabs 3 - with Tiny Slider</h3>
+                    <div class="c--tabs-a">
+                        <div class="c--tabs-a__hd">
+                            <ul class="c--tabs-a__hd__list">
+                                <li class="c--tabs-a__hd__list__list-item">
+                                    <button class="c--tabs-a__hd__list__list-item__link js--select-tab" type="button" data-tabThird-control="tabThirdContent-01" aria-expanded="false">Tab 01</button>
+                                </li>
+                                <li class="c--tabs-a__hd__list__list-item">
+                                    <button class="c--tabs-a__hd__list__list-item__link js--select-tab" type="button" data-tabThird-control="tabThirdContent-02" aria-expanded="false">Tab 02</button>
+                                </li>
+                                <li class="c--tabs-a__hd__list__list-item">
+                                    <button class="c--tabs-a__hd__list__list-item__link js--select-tab" type="button" data-tabThird-control="tabThirdContent-03" aria-expanded="false">Tab 03</button>
+                                </li>
+                            </ul>
+
+                            <div class="c--tabs-a__hd__selector">
+                                <select aria-label="tab selector" class="c--tabs-a__hd__selector__item js--select-item-c">
+                                    <option value="" disabled="" selected="">Select</option>
+                                    <option data-tabThird-dropdown-item="tabThirdContent-01" value="">option 01</option>
+                                    <option data-tabThird-dropdown-item="tabThirdContent-02" value="">option 02</option>
+                                    <option data-tabThird-dropdown-item="tabThirdContent-03" value="">option 03</option>
+                                </select>
+                            </div>
+                        </div>
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css" />
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+                        <div class="c--tabs-a__bd" data-tabThird-content="tabThirdContent-01" aria-hidden="true">
+                            <div class="c--slider-b">
+                                <div class="js--slider">
+                                    <div class="c--slider-b__wrapper__item">
+                                        <h4>Slide 01</h4>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                            itaque iste quam, asperiores aliquid illum optio atque quidem.
+                                        </p>
+                                    </div>
+                                    <div class="c--slider-b__wrapper__item">
+                                        <h4>Slide 02</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum.</p>
+                                    </div>
+                                    <div class="c--slider-b__wrapper__item">
+                                        <h4>Slide 03</h4>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                            itaque iste quam.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="c--tabs-a__bd" data-tabThird-content="tabThirdContent-02" aria-hidden="true">
+                            <div class="c--slider-b">
+                                <div class="js--slider">
+                                    <div class="c--slider-b__wrapper__item">
+                                        <h4>Slide 01</h4>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                            itaque iste quam, asperiores aliquid illum optio atque quidem.
+                                        </p>
+                                    </div>
+                                    <div class="c--slider-b__wrapper__item">
+                                        <h4>Slide 02</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum.</p>
+                                    </div>
+                                    <div class="c--slider-b__wrapper__item">
+                                        <h4>Slide 03</h4>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                            itaque iste quam.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="c--tabs-a__bd" data-tabThird-content="tabThirdContent-03" aria-hidden="true">
+                            <div class="c--slider-b">
+                                <div class="js--slider">
+                                    <div class="c--slider-b__wrapper__item">
+                                        <h4>Slide 01</h4>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                            itaque iste quam, asperiores aliquid illum optio atque quidem.
+                                        </p>
+                                    </div>
+                                    <div class="c--slider-b__wrapper__item">
+                                        <h4>Slide 02</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum.</p>
+                                    </div>
+                                    <div class="c--slider-b__wrapper__item">
+                                        <h4>Slide 03</h4>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui
+                                            itaque iste quam.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="f--col-6 f--col-tabletm-12">
+                    <pre class="c--code-a">
+                <label class="c--code-a__label">JS</label>
+                  <code class="c--code-a__content">
+    var tab = new Collapsify({
+    nameSpace: "tabThird",
+    closeOthers: true,
+    isTab: true,
+    dropdownElement: document.querySelector(".js--select-item-c"),
+    onSlideStart: (isOpen, contentID) => {
+    ...
+    },
+    onSlideEnd: (isOpen, contentID) => {
+    ...
+    }
+    });
+                  </code>
+                </pre>
+                    <div class="c--note-a">
+                        <p>
+                            This example shows how you can use this library with other js libraries, it is important to use both 'onSlideStart' and 'onSliderEnd' callbacks in order to
+                            initialize/destroy.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    </body>
 </html>
