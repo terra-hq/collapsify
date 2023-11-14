@@ -1,7 +1,7 @@
 # @terrahq/collapsify.js
 
 Javascript module for accordion/collapse/tabs written in Vanilla js.  
-[> examples](https://collapsify.terrahq.com/)
+[> examples](https://collapsify-terra.netlify.app/)
 
 ## Usage
 
