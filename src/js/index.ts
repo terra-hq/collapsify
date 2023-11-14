@@ -66,7 +66,7 @@ const tabThird = new Collapsify({
                 lazyload: true,
                 autoplayButtonOutput: false,
                 speed: 500,
-                autoplayTimeout: 9000,
+                autoplayTimeout: 3000,
                 preventActionWhenRunning: true,
                 preventScrollOnTouch: "auto",
                 touch: false,
