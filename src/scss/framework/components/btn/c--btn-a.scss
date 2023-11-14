@@ -3,6 +3,7 @@
     background: map-get($color-options, a);
     padding: $measure;
     color: map-get($color-options, b);
+    min-width: 130px;
     &.is-active {
         background: red;
     }
