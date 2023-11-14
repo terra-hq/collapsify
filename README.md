@@ -77,8 +77,6 @@ collapsify.close(contentID, [isRunCallback, isAnimation]);
 
 ## Samples
 
-[examples](https://handy-collapse.netlify.com/)
-
 ### JS
 
 ```javascript
