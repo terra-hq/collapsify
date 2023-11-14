@@ -50,10 +50,11 @@ new Collapsify(options);
 
 | Option Name       | Type                                     | Default                   | Desc                                                                                                                     |
 | ----------------- | ---------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| nameSpace         | string                                   | "collapsify"              | Set namespace both "toggleButtonAttr" & "toggleContentAttr"                                                              |
+| nameSpace         | string                                   | "collapsify"              | Set namespace for "toggleButtonAttr", "toggleContentAttr" & "toggleSelectOptionsAttr"                                    |
 | toggleButtonAttr  | string                                   | "data-collapsify-control" | data attribute for Button Element                                                                                        |
 | toggleContentAttr | string                                   | "data-collapsify-content" | data attribute for Content                                                                                               |
-| dropdownElement   | HTMLSelectElement                        | "null"                    | HTML dropdown element for tablets/mobiles                                                                                |
+| dropdownElement   | HTMLSelectElement                        | -                         | HTML dropdown element for tablets/mobiles                                                                                |
+| isTab             | boolean                                  | false                     | The package being used for tabs                                                                                          |
 | activeClass       | string                                   | "is-active"               | Add class on opened Element                                                                                              |
 | isAnimation       | boolean                                  | true                      | animation Slide                                                                                                          |
 | closeOthers       | boolean                                  | true                      | Close others Content                                                                                                     |
@@ -67,14 +68,14 @@ new Collapsify(options);
 Open/Close Content
 
 ```javascript
-handyCollapse.open(contentID, [isRunCallback, isAnimation]);
+collapsify.open(contentID, [isRunCallback, isAnimation]);
 ```
 
 ```javascript
-handyCollapse.close(contentID, [isRunCallback, isAnimation]);
+collapsify.close(contentID, [isRunCallback, isAnimation]);
 ```
 
-## Sample
+## Samples
 
 [examples](https://handy-collapse.netlify.com/)
 
@@ -82,10 +83,10 @@ handyCollapse.close(contentID, [isRunCallback, isAnimation]);
 
 ```javascript
 //Default Options
-const myAccrodion = new HandyCollapse();
+const myAccrodion = new Collapsify();
 
 //Full Options
-const myAccrodionCustom = new HandyCollapse({
+const myAccrodionCustom = new Collapsify({
     nameSpace: "collapsify", // Note: Be sure to set different names when creating multiple instances
     activeClass: "is-active",
     isAnimation: true,
@@ -132,6 +133,72 @@ myAccrodion.close("content01");
     ... parent content ...
     <button type="button" 　 data-collapsify-control="childContent" aria-expanded="true" aria-controls="netstedChiledContent">Show/Hide child content</button>
     <div id="netstedChiledContent" data-collapsify-content="childContent" aria-hidden="true">... child content ...</div>
+</div>
+```
+
+### JS
+
+```javascript
+//Tab example
+const tab = new Collapsify({
+    nameSpace: "tab",
+    closeOthers: true,
+    isTab: true,
+    dropdownElement: document.querySelector(".js--select-item-a"),
+});
+```
+
+### HTML
+
+```html
+<div class="c--tabs-a">
+    <div class="c--tabs-a__hd">
+        <ul class="c--tabs-a__hd__list">
+            <li class="c--tabs-a__hd__list__list-item">
+                <button
+                    class="c--tabs-a__hd__list__list-item__link c--tabs-a__hd__list__list-item__link--is-active js--select-tab"
+                    type="button"
+                    data-tab-control="tabContent-01"
+                    aria-expanded="false"
+                >
+                    Tab 01
+                </button>
+            </li>
+            <li class="c--tabs-a__hd__list__list-item">
+                <button class="c--tabs-a__hd__list__list-item__link js--select-tab" type="button" data-tab-control="tabContent-02" aria-expanded="false">Tab 02</button>
+            </li>
+            <li class="c--tabs-a__hd__list__list-item">
+                <button class="c--tabs-a__hd__list__list-item__link js--select-tab" type="button" data-tab-control="tabContent-03" aria-expanded="false">Tab 03</button>
+            </li>
+        </ul>
+
+        <div class="c--tabs-a__hd__selector">
+            <select aria-label="tab selector" class="c--tabs-a__hd__selector__item js--select-item-a">
+                <option value="" disabled="" selected="">Select</option>
+                <option data-tab-dropdown-item="tabContent-01" value="">option 01</option>
+                <option data-tab-dropdown-item="tabContent-02" value="">option 02</option>
+                <option data-tab-dropdown-item="tabContent-03" value="">option 03</option>
+            </select>
+        </div>
+    </div>
+    <div class="c--tabs-a__bd c--tabs-a__bd--is-active" data-tab-content="tabContent-01" aria-hidden="true">
+        <p>
+            Content First: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui itaque iste quam,
+            asperiores aliquid illum optio atque quidem.
+        </p>
+    </div>
+    <div class="c--tabs-a__bd" data-tab-content="tabContent-02" aria-hidden="true">
+        <p>
+            Content Second: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui itaque iste quam,
+            asperiores aliquid illum optio atque quidem.
+        </p>
+    </div>
+    <div class="c--tabs-a__bd" data-tab-content="tabContent-03" aria-hidden="true">
+        <p>
+            Content Third: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui itaque iste quam,
+            asperiores aliquid illum optio atque quidem.
+        </p>
+    </div>
 </div>
 ```
 
