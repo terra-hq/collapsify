@@ -73,6 +73,13 @@ export default class Collapsify {
     };
 
     handleDropdownSelectEvent(selectElement) {
+        this.toggleContentEls.forEach((contentElement) => {
+            if (Array.from(contentElement.classList).some((classItem) => classItem.includes(this.options.activeClass))) {
+                let id = this.jsui.getAttr(contentElement, this.options.toggleContentAttr);
+                let selectedOption = document.querySelector(`[${this.options.toggleSelectOptionsAttr} = ${id}]`);
+                selectedOption.selected = true;
+            }
+        });
         selectElement.addEventListener("change", this.handleSelectChange);
     }
 
