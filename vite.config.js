@@ -15,8 +15,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(root, 'index.html'),
-        // about: resolve(root, 'about.html'), 
-        // pagewithfolder: resolve(root, 'folder', 'about.html'), 
       }
     }
   },
