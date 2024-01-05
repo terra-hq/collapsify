@@ -1,8 +1,11 @@
 import JSUTIL from "@andresclua/jsutil";
+import mitt from "mitt";
+import { digElement } from "@terrahq/helpers/digElement";
 
 export default class Collapsify {
     constructor(_options = {}) {
         this.jsui = new JSUTIL();
+        this.emitter = mitt();
         const nameSpace = _options && "nameSpace" in _options ? _options.nameSpace : "collapsify";
         const defaultOptions = {
             nameSpace: _options && "nameSpace" in _options ? _options.nameSpace : "collapsify",
@@ -18,6 +21,7 @@ export default class Collapsify {
             isTab: _options && "isTab" in _options,
             onSlideStart: _options && "onSlideStart" in _options && _options.onSlideStart,
             onSlideEnd: _options && "onSlideEnd" in _options && _options.onSlideEnd,
+            index: _options && "index" in _options && _options.index,
         };
         this.options = {
             ...defaultOptions,
@@ -37,6 +41,26 @@ export default class Collapsify {
             this.handleDropdownSelectEvent(this.options.toggleSelectElement);
         }
     }
+
+    isReady = async () => {
+        Promise.all(
+            this.toggleContentEls.map(async (element) => {
+                await digElement({
+                    element: element,
+                    search: {
+                        type: "style",
+                        lookFor: ["max-heigt", "visibility"],
+                    },
+                    intervalFrequency: 1000,
+                    timer: 5000,
+                });
+            })
+        )
+            .then(() => {
+                this.emitter.emit(`${this.options.nameSpace}-collapsify`, { isReady: true });
+            })
+            .catch((error) => console.log(error.message));
+    };
 
     initContentsState(contentEls) {
         this.itemsState = {};
