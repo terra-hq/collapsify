@@ -1,7 +1,7 @@
 {
     "name": "@terrahq/collapsify",
     "private": false,
-    "version": "0.0.17",
+    "version": "0.0.18",
     "type": "module",
     "exports": {
         ".": "./src/js/Collapsify.js"
@@ -19,7 +19,6 @@
     },
     "dependencies": {
         "@andresclua/jsutil": "^3.0.16",
-        "@terrahq/helpers": "0.0.25",
-        "mitt": "^3.0.1"
+        "@terrahq/helpers": "0.0.25"
     }
 }
