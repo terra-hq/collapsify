@@ -1,11 +1,9 @@
 import JSUTIL from "@andresclua/jsutil";
-import mitt from "mitt";
 import { digElement } from "@terrahq/helpers/digElement";
 
 export default class Collapsify {
     constructor(_options = {}) {
         this.jsui = new JSUTIL();
-        this.emitter = mitt();
         const nameSpace = _options && "nameSpace" in _options ? _options.nameSpace : "collapsify";
         const defaultOptions = {
             nameSpace: _options && "nameSpace" in _options ? _options.nameSpace : "collapsify",
@@ -43,7 +41,7 @@ export default class Collapsify {
     }
 
     isReady = async () => {
-        Promise.all(
+        return Promise.all(
             this.toggleContentEls.map(async (element) => {
                 await digElement({
                     element: element,
@@ -57,7 +55,10 @@ export default class Collapsify {
             })
         )
             .then(() => {
-                this.emitter.emit(`${this.options.nameSpace}-collapsify`, { isReady: true });
+                if (!window["Collapsify"]) {
+                    window["Collapsify"] = [];
+                }
+                window["Collapsify"][this.options.index] = { isReady: true };
             })
             .catch((error) => console.log(error.message));
     };
