@@ -1,9 +1,8 @@
-import JSUTIL from "@andresclua/jsutil";
+import { u_addClass, u_getAttr, u_removeClass, u_setAttr, u_style } from "@andresclua/jsutil";
 import { digElement } from "@terrahq/helpers/digElement";
 
 export default class Collapsify {
     constructor(_options = {}) {
-        this.jsui = new JSUTIL();
         const nameSpace = _options && "nameSpace" in _options ? _options.nameSpace : "collapsify";
         const defaultOptions = {
             nameSpace: _options && "nameSpace" in _options ? _options.nameSpace : "collapsify",
@@ -66,10 +65,10 @@ export default class Collapsify {
     initContentsState(contentEls) {
         this.itemsState = {};
         contentEls.forEach((contentEl) => {
-            this.jsui.addStyle(contentEl, "overflow", "hidden");
-            this.jsui.addStyle(contentEl, "max-height", "none");
+            u_style(contentEl, [{ overflow: "hidden" }]);
+            u_style(contentEl, [{ maxHeight: "none" }]);
             const isOpen = Array.from(contentEl.classList).some((classItem) => classItem.includes(this.options.activeClass));
-            const id = this.jsui.getAttr(contentEl, this.options.toggleContentAttr);
+            const id = u_getAttr(contentEl, this.options.toggleContentAttr);
             if (!id) return;
             this.setItemState(id, isOpen);
             if (!isOpen) {
@@ -82,7 +81,7 @@ export default class Collapsify {
 
     handleButtonsEvent(buttonElement) {
         buttonElement.forEach((buttonEl) => {
-            const id = this.jsui.getAttr(buttonEl, this.options.toggleButtonAttr);
+            const id = u_getAttr(buttonEl, this.options.toggleButtonAttr);
             if (id) {
                 buttonEl.addEventListener("click", this.handleButtonClick);
             }
@@ -90,7 +89,7 @@ export default class Collapsify {
     }
 
     handleButtonClick = (event) => {
-        const id = this.jsui.getAttr(event.target, this.options.toggleButtonAttr);
+        const id = u_getAttr(event.target, this.options.toggleButtonAttr);
         if (id) {
             event.preventDefault();
             this.toggleSlide(id, true);
@@ -100,7 +99,7 @@ export default class Collapsify {
     handleDropdownSelectEvent(selectElement) {
         this.toggleContentEls.forEach((contentElement) => {
             if (Array.from(contentElement.classList).some((classItem) => classItem.includes(this.options.activeClass))) {
-                let id = this.jsui.getAttr(contentElement, this.options.toggleContentAttr);
+                let id = u_getAttr(contentElement, this.options.toggleContentAttr);
                 let selectedOption = document.querySelector(`[${this.options.toggleSelectOptionsAttr} = ${id}]`);
                 selectedOption.selected = true;
             }
@@ -110,7 +109,7 @@ export default class Collapsify {
 
     handleSelectChange = (event) => {
         const selectedOption = event.target.options[event.target.selectedIndex];
-        const id = this.jsui.getAttr(selectedOption, this.options.toggleSelectOptionsAttr);
+        const id = u_getAttr(selectedOption, this.options.toggleSelectOptionsAttr);
         this.toggleSlide(id, true);
     };
 
@@ -143,14 +142,15 @@ export default class Collapsify {
 
         if (this.options.closeOthers) {
             [].slice.call(this.toggleContentEls).forEach((contentEl) => {
-                const closeId = this.jsui.getAttr(contentEl, this.options.toggleContentAttr);
+                const closeId = u_getAttr(contentEl, this.options.toggleContentAttr);
                 if (closeId && closeId !== id) this.close(closeId, false, isAnimation);
             });
         }
         if (isRunCallback !== false && this.options.onSlideStart) this.options.onSlideStart(true, id);
 
         const clientHeight = this.getTargetHeight(toggleBody);
-        this.jsui.addStyle(toggleBody, "visibility", "visible");
+
+        u_style(toggleBody, [{ visibility: "visible" }]);
 
         this.toggleActiveClass(toggleBody, true);
 
@@ -163,19 +163,19 @@ export default class Collapsify {
         }
 
         if (isAnimation) {
-            this.jsui.addStyle(toggleBody, "overflow", "hidden");
-            this.jsui.addStyle(toggleBody, "transition", `${this.options.animationSpeed}ms ${this.options.cssEasing}`);
-            this.jsui.addStyle(toggleBody, "max-height", (clientHeight || "1000") + "px");
+            u_style(toggleBody, [{ overflow: "hidden" }]);
+            u_style(toggleBody, [{ transition: `${this.options.animationSpeed}ms ${this.options.cssEasing}` }]);
+            u_style(toggleBody, [{ maxHeight: (clientHeight || "1000") + "px" }]);
             setTimeout(() => {
                 if (isRunCallback !== false && this.options.onSlideEnd) this.options.onSlideEnd(true, id);
-                this.jsui.addStyle(toggleBody, "overflow", "");
-                this.jsui.addStyle(toggleBody, "transition", "");
-                this.jsui.addStyle(toggleBody, "max-height", "none");
+                u_style(toggleBody, [{ overflow: "" }]);
+                u_style(toggleBody, [{ transition: "" }]);
+                u_style(toggleBody, [{ maxHeight: "none" }]);
                 this.itemsState[id].isAnimating = false;
             }, this.options.animationSpeed);
         } else {
-            this.jsui.addStyle(toggleBody, "max-height", "none");
-            this.jsui.addStyle(toggleBody, "overflow", "");
+            u_style(toggleBody, [{ maxHeight: "none" }]);
+            u_style(toggleBody, [{ overflow: "" }]);
             this.itemsState[id].isAnimating = false;
         }
         this.itemsState[id].isOpen = true;
@@ -191,13 +191,13 @@ export default class Collapsify {
         if (isRunCallback !== false && this.options.onSlideStart) this.options.onSlideStart(false, id);
 
         const toggleBody = document.querySelector(`[${this.options.toggleContentAttr}='${id}']`);
-        this.jsui.addStyle(toggleBody, "overflow", "hidden");
-        this.jsui.addStyle(toggleBody, "max-height", toggleBody.clientHeight + "px");
+        u_style(toggleBody, [{ overflow: "hidden" }]);
+        u_style(toggleBody, [{ maxHeight: toggleBody.clientHeight + "px" }]);
 
         this.toggleActiveClass(toggleBody, false);
 
         setTimeout(() => {
-            this.jsui.addStyle(toggleBody, "max-height", "0px");
+            u_style(toggleBody, [{ maxHeight: "0px" }]);
         }, 5);
 
         const toggleButton = document.querySelectorAll(`[${this.options.toggleButtonAttr}='${id}']`);
@@ -209,17 +209,17 @@ export default class Collapsify {
         }
 
         if (isAnimation) {
-            this.jsui.addStyle(toggleBody, "transition", `${this.options.animationSpeed}ms ${this.options.cssEasing}`);
+            u_style(toggleBody, [{ transition: `${this.options.animationSpeed}ms ${this.options.cssEasing}` }]);
             setTimeout(() => {
                 if (isRunCallback !== false && this.options.onSlideEnd) this.options.onSlideEnd(false, id);
-                this.jsui.addStyle(toggleBody, "transition", "");
+                u_style(toggleBody, [{ transition: "" }]);
                 this.itemsState[id].isAnimating = false;
-                this.jsui.addStyle(toggleBody, "visibility", "hidden");
+                u_style(toggleBody, [{ visibility: "hidden" }]);
             }, this.options.animationSpeed);
         } else {
             this.options.onSlideEnd && this.options.onSlideEnd(false, id);
             this.itemsState[id].isAnimating = false;
-            this.jsui.addStyle(toggleBody, "visibility", "hidden");
+            u_style(toggleBody, [{ visibility: "hidden" }]);
         }
         if (Object.prototype.hasOwnProperty.call(this.itemsState, id)) {
             this.itemsState[id].isOpen = false;
@@ -231,18 +231,18 @@ export default class Collapsify {
         const elementFilteredClass =
             !toggleElement.classList[0] || toggleElement.classList[0].startsWith("--is-active") ? this.options.activeClass : toggleElement.classList[0] + this.options.activeClass;
         if (active) {
-            this.jsui.addClass(toggleElement, elementFilteredClass);
+            u_addClass(toggleElement, elementFilteredClass);
         } else {
-            this.jsui.removeClass(toggleElement, elementFilteredClass);
+            u_removeClass(toggleElement, elementFilteredClass);
         }
     }
 
     toggleAriaAttribute(toggleElement, attribute, active) {
-        if (this.jsui.getAttr(toggleElement, attribute)) {
+        if (u_getAttr(toggleElement, attribute)) {
             if (attribute === "aria-expanded") {
-                this.jsui.setAttr(toggleElement, attribute, active);
+                u_setAttr(toggleElement, attribute, active);
             } else {
-                this.jsui.setAttr(toggleElement, attribute, !active);
+                u_setAttr(toggleElement, attribute, !active);
             }
         }
     }
@@ -269,7 +269,7 @@ export default class Collapsify {
 
     destroy = () => {
         this.toggleButtonEls.forEach((buttonEl) => {
-            const id = this.jsui.getAttr(buttonEl, this.options.toggleButtonAttr);
+            const id = u_getAttr(buttonEl, this.options.toggleButtonAttr);
             if (id) {
                 buttonEl.removeEventListener("click", this.handleButtonClick);
             }
