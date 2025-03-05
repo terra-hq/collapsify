@@ -62,6 +62,7 @@ new Collapsify(options);
 | cssEasing         | string                                   | "ease-in-out"             | css transition easing (only isAnimation:true)                                                                            |
 | onSlideStart      | (isOpen:boolean,contentID:string)=> void | () => void                | Callback on Open/Close Animation Start <br> @param {Boolean} isOpen <br> @param {String} contentID \* Don't ID Attribute |
 | onSlideEnd        | (isOpen:boolean,contentID:string)=> void | () => void                | Callback on Open/Close Animation End <br> @param {Boolean} isOpen <br> @param {String} contentID \* Don't ID Attribute   |
+| onComplete        | () => void                               | () => void                | Callback triggered after Collapsify finishes initialization.                                                             |
 
 ## Methods
 

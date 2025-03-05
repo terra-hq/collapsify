@@ -19,6 +19,7 @@ export default class Collapsify {
             onSlideStart: _options && "onSlideStart" in _options && _options.onSlideStart,
             onSlideEnd: _options && "onSlideEnd" in _options && _options.onSlideEnd,
             index: _options && "index" in _options && _options.index,
+            onComplete: _options && "onComplete" in _options && _options.onComplete,
         };
         this.options = {
             ...defaultOptions,
@@ -36,6 +37,11 @@ export default class Collapsify {
         this.handleButtonsEvent(this.toggleButtonEls);
         if (this.options.toggleSelectElement) {
             this.handleDropdownSelectEvent(this.options.toggleSelectElement);
+        }
+        if (typeof this.options.onComplete === "function") {
+            setTimeout(() => {
+                this.options.onComplete();
+            }, 300);
         }
     }
 
