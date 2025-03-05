@@ -102,6 +102,9 @@ const myAccrodionCustom = new Collapsify({
         const contentEl = document.querySelector(`[data-collapsify-content='${contentID}']`);
         console.log(contentEl);
     },
+    onComplete: () => {
+        console.log('myAccrodionCustom is loaded!');
+    }
 });
 
 // Open by Js
