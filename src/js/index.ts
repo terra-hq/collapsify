@@ -6,6 +6,7 @@ import Collapsify from "./Collapsify.js";
 // @ts-ignore
 var SimpleExample = new Collapsify();
 
+
 // @ts-ignore
 var different = new Collapsify({
     nameSpace: "different",
@@ -75,7 +76,8 @@ const tabThird = new Collapsify({
         }
     },
     // @ts-ignore
-    onSlideEnd: (isOpen, contentID) => {
+    onSlideEnd: async (isOpen, contentID) => {
+        await new Promise((resolve) => setTimeout(resolve, 3000));
         const contentElements = [].slice.call(document.querySelectorAll(`[data-tabThird-content]`));
         contentElements.forEach((contentElement) => {
             // @ts-ignore
@@ -89,3 +91,10 @@ const tabThird = new Collapsify({
         });
     },
 });
+
+
+
+
+
+
+

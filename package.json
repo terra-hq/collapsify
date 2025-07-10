@@ -1,7 +1,7 @@
 {
     "name": "@terrahq/collapsify",
     "private": false,
-    "version": "0.0.21",
+    "version": "0.0.22",
     "type": "module",
     "exports": {
         ".": "./src/js/Collapsify.js"
@@ -18,7 +18,7 @@
         "vite": "^4.4.5"
     },
     "dependencies": {
-        "@andresclua/jsutil": "^4.0.2",
+        "@andresclua/jsutil": "^4.0.5",
         "@terrahq/helpers": "0.0.47"
     }
 }

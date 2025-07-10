@@ -32,15 +32,15 @@ export default class Collapsify {
             this.init();
         }
     }
-    init() {
+    async init() {
         this.initContentsState(this.toggleContentEls);
         this.handleButtonsEvent(this.toggleButtonEls);
         if (this.options.toggleSelectElement) {
             this.handleDropdownSelectEvent(this.options.toggleSelectElement);
         }
         if (typeof this.options.onComplete === "function") {
-            setTimeout(() => {
-                this.options.onComplete();
+            setTimeout(async () => {
+                await this.options.onComplete();
             }, 300);
         }
     }
@@ -94,11 +94,11 @@ export default class Collapsify {
         });
     }
 
-    handleButtonClick = (event) => {
+    handleButtonClick = async (event) => {
         const id = u_getAttr(event.target, this.options.toggleButtonAttr);
         if (id) {
             event.preventDefault();
-            this.toggleSlide(id, true);
+            await this.toggleSlide(id, true);
         }
     };
 
@@ -113,10 +113,10 @@ export default class Collapsify {
         selectElement.addEventListener("change", this.handleSelectChange);
     }
 
-    handleSelectChange = (event) => {
+    handleSelectChange = async (event) => {
         const selectedOption = event.target.options[event.target.selectedIndex];
         const id = u_getAttr(selectedOption, this.options.toggleSelectOptionsAttr);
-        this.toggleSlide(id, true);
+        await this.toggleSlide(id, true);
     };
 
     setItemState(id, isOpen) {
@@ -126,16 +126,16 @@ export default class Collapsify {
         };
     }
 
-    toggleSlide(id, isRunCallback = true) {
+    async toggleSlide(id, isRunCallback = true) {
         if (this.itemsState[id]?.isAnimating || (this.options.isTab && this.itemsState[id]?.isOpen)) return;
         if (!this.itemsState[id]?.isOpen) {
-            this.open(id, isRunCallback, this.options.isAnimation);
+            await this.open(id, isRunCallback, this.options.isAnimation);
         } else {
-            this.close(id, isRunCallback, this.options.isAnimation);
+            await this.close(id, isRunCallback, this.options.isAnimation);
         }
     }
 
-    open(id, isRunCallback = true, isAnimation = true) {
+    async open(id, isRunCallback = true, isAnimation = true) {
         if (!id) return;
         if (!Object.prototype.hasOwnProperty.call(this.itemsState, id)) {
             this.setItemState(id, false);
@@ -147,12 +147,12 @@ export default class Collapsify {
         this.itemsState[id].isAnimating = true;
 
         if (this.options.closeOthers) {
-            [].slice.call(this.toggleContentEls).forEach((contentEl) => {
+            [].slice.call(this.toggleContentEls).forEach(async (contentEl) => {
                 const closeId = u_getAttr(contentEl, this.options.toggleContentAttr);
-                if (closeId && closeId !== id) this.close(closeId, false, isAnimation);
+                if (closeId && closeId !== id) await this.close(closeId, false, isAnimation);
             });
         }
-        if (isRunCallback !== false && this.options.onSlideStart) this.options.onSlideStart(true, id);
+        if (isRunCallback !== false && this.options.onSlideStart) await this.options.onSlideStart(true, id);
 
         const clientHeight = this.getTargetHeight(toggleBody);
 
@@ -172,8 +172,8 @@ export default class Collapsify {
             u_style(toggleBody, [{ overflow: "hidden" }]);
             u_style(toggleBody, [{ transition: `${this.options.animationSpeed}ms ${this.options.cssEasing}` }]);
             u_style(toggleBody, [{ maxHeight: (clientHeight || "1000") + "px" }]);
-            setTimeout(() => {
-                if (isRunCallback !== false && this.options.onSlideEnd) this.options.onSlideEnd(true, id);
+            setTimeout(async () => {
+                if (isRunCallback !== false && this.options.onSlideEnd) await this.options.onSlideEnd(true, id);
                 u_style(toggleBody, [{ overflow: "" }]);
                 u_style(toggleBody, [{ transition: "" }]);
                 u_style(toggleBody, [{ maxHeight: "none" }]);
@@ -182,19 +182,20 @@ export default class Collapsify {
         } else {
             u_style(toggleBody, [{ maxHeight: "none" }]);
             u_style(toggleBody, [{ overflow: "" }]);
+            if (isRunCallback !== false && this.options.onSlideEnd) await this.options.onSlideEnd(true, id);
             this.itemsState[id].isAnimating = false;
         }
         this.itemsState[id].isOpen = true;
         this.toggleAriaAttribute(toggleBody, "aria-hidden", true);
     }
 
-    close(id, isRunCallback = true, isAnimation = true) {
+    async close(id, isRunCallback = true, isAnimation = true) {
         if (!id) return;
         if (!Object.prototype.hasOwnProperty.call(this.itemsState, id)) {
             this.setItemState(id, false);
         }
         this.itemsState[id].isAnimating = true;
-        if (isRunCallback !== false && this.options.onSlideStart) this.options.onSlideStart(false, id);
+        if (isRunCallback !== false && this.options.onSlideStart) await this.options.onSlideStart(false, id);
 
         const toggleBody = document.querySelector(`[${this.options.toggleContentAttr}='${id}']`);
         u_style(toggleBody, [{ overflow: "hidden" }]);
@@ -216,14 +217,14 @@ export default class Collapsify {
 
         if (isAnimation) {
             u_style(toggleBody, [{ transition: `${this.options.animationSpeed}ms ${this.options.cssEasing}` }]);
-            setTimeout(() => {
-                if (isRunCallback !== false && this.options.onSlideEnd) this.options.onSlideEnd(false, id);
+            setTimeout(async () => {
+                if (isRunCallback !== false && this.options.onSlideEnd) await this.options.onSlideEnd(false, id);
                 u_style(toggleBody, [{ transition: "" }]);
                 this.itemsState[id].isAnimating = false;
                 u_style(toggleBody, [{ visibility: "hidden" }]);
             }, this.options.animationSpeed);
         } else {
-            this.options.onSlideEnd && this.options.onSlideEnd(false, id);
+            if (isRunCallback !== false && this.options.onSlideEnd) await this.options.onSlideEnd(false, id);
             this.itemsState[id].isAnimating = false;
             u_style(toggleBody, [{ visibility: "hidden" }]);
         }
