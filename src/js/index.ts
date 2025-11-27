@@ -27,9 +27,15 @@ const nested = new Collapsify({
 const tab = new Collapsify({
     nameSpace: "tab",
     closeOthers: true,
-    isTab: true,
     dropdownElement: document.querySelector(".js--select-item-a"),
+     onSlideStart: (isOpen, contentID) => {
+        console.log('hola mundo')
+     }
 });
+
+document.getElementById('gotofirst')?.addEventListener("click", () => {
+    tab.open("tabContent-01");
+})
 
 // @ts-ignore
 const tabTwo = new Collapsify({
