@@ -46,6 +46,14 @@ const tabTwo = new Collapsify({
 });
 
 // @ts-ignore
+const syncTab = new Collapsify({
+    nameSpace: "synctab",
+    isTab: true,
+    closeOthers: true,
+    dropdownElement: document.querySelector(".js--select-item-sync"),
+});
+
+// @ts-ignore
 var sliderInstances = {};
 
 // @ts-ignore

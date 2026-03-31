@@ -544,6 +544,80 @@
             </div>
         </div>
 
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-12">
+                    <hr />
+                </div>
+            </div>
+        </div>
+
+        <div class="f--container">
+            <div class="f--row">
+                <div class="f--col-6 f--col-tabletm-12">
+                    <h3 class="f--font-c f--sp-d">Tabs - Dropdown sync test</h3>
+                    <p class="f--font-e f--sp-d">
+                        Clicking the buttons should update the dropdown, and selecting from the dropdown should update the active tab.
+                        The first tab is active by default.
+                    </p>
+                    <div class="c--tabs-a">
+                        <div class="c--tabs-a__hd">
+                            <ul class="c--tabs-a__hd__list">
+                                <li class="c--tabs-a__hd__list__list-item">
+                                    <button class="c--tabs-a__hd__list__list-item__link c--tabs-a__hd__list__list-item__link--is-active" type="button" data-synctab-control="syncContent-01" aria-expanded="true">Tab 01</button>
+                                </li>
+                                <li class="c--tabs-a__hd__list__list-item">
+                                    <button class="c--tabs-a__hd__list__list-item__link" type="button" data-synctab-control="syncContent-02" aria-expanded="false">Tab 02</button>
+                                </li>
+                                <li class="c--tabs-a__hd__list__list-item">
+                                    <button class="c--tabs-a__hd__list__list-item__link" type="button" data-synctab-control="syncContent-03" aria-expanded="false">Tab 03</button>
+                                </li>
+                            </ul>
+
+                            <div class="c--tabs-a__hd__selector">
+                                <select aria-label="tab selector" class="c--tabs-a__hd__selector__item js--select-item-sync">
+                                    <option value="" disabled="">Select</option>
+                                    <option data-synctab-dropdown-item="syncContent-01" value="">Tab 01</option>
+                                    <option data-synctab-dropdown-item="syncContent-02" value="">Tab 02</option>
+                                    <option data-synctab-dropdown-item="syncContent-03" value="">Tab 03</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="c--tabs-a__bd c--tabs-a__bd--is-active" data-synctab-content="syncContent-01" aria-hidden="false">
+                            <p>Content 01 — Click Tab 02 or Tab 03 and check that the dropdown updates accordingly.</p>
+                        </div>
+                        <div class="c--tabs-a__bd" data-synctab-content="syncContent-02" aria-hidden="true">
+                            <p>Content 02 — The dropdown should now show "Tab 02".</p>
+                        </div>
+                        <div class="c--tabs-a__bd" data-synctab-content="syncContent-03" aria-hidden="true">
+                            <p>Content 03 — The dropdown should now show "Tab 03".</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="f--col-6 f--col-tabletm-12">
+                    <pre class="c--code-a">
+                <label class="c--code-a__label">JS</label>
+                  <code class="c--code-a__content">
+    var syncTab = new Collapsify({
+        nameSpace: "synctab",
+        isTab: true,
+        closeOthers: true,
+        dropdownElement: document.querySelector(".js--select-item-sync"),
+    });
+                  </code>
+                </pre>
+                    <div class="c--note-a">
+                        <p>
+                            Test: clicking a tab button should update the dropdown.<br />
+                            Selecting from the dropdown should update the active tab.<br />
+                            On load, the dropdown should reflect the initially active tab.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script type="module" src="./js/index.ts"></script>
     </body>
 </html>
