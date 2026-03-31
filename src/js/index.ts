@@ -1,7 +1,7 @@
 import "./../scss/index.scss";
 
 // @ts-ignore
-import Collapsify from "./Collapsify.js";
+import Collapsify from "./core/Collapsify.js";
 
 // @ts-ignore
 var SimpleExample = new Collapsify();

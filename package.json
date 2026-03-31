@@ -3,12 +3,21 @@
     "private": false,
     "version": "0.0.22",
     "type": "module",
+    "main": "./dist/Collapsify.umd.js",
+    "module": "./dist/Collapsify.es.js",
     "exports": {
-        ".": "./src/js/Collapsify.js"
+        ".": {
+            "import": "./dist/Collapsify.es.js",
+            "require": "./dist/Collapsify.umd.js"
+        }
     },
+    "files": [
+        "dist"
+    ],
     "scripts": {
-        "dev": "vite",
-        "build": "tsc && vite build",
+        "dev": "vite --config vite.config.demo.js",
+        "build": "vite build",
+        "build:demo": "vite build --config vite.config.demo.js",
         "preview": "vite preview"
     },
     "devDependencies": {

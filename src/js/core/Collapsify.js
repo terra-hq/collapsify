@@ -106,11 +106,21 @@ export default class Collapsify {
         this.toggleContentEls.forEach((contentElement) => {
             if (Array.from(contentElement.classList).some((classItem) => classItem.includes(this.options.activeClass))) {
                 let id = u_getAttr(contentElement, this.options.toggleContentAttr);
-                let selectedOption = document.querySelector(`[${this.options.toggleSelectOptionsAttr} = ${id}]`);
-                selectedOption.selected = true;
+                let selectedOption = document.querySelector(`[${this.options.toggleSelectOptionsAttr}='${id}']`);
+                if (selectedOption) {
+                    selectedOption.selected = true;
+                }
             }
         });
         selectElement.addEventListener("change", this.handleSelectChange);
+    }
+
+    syncSelectToTab(id) {
+        if (!this.options.toggleSelectElement || !id) return;
+        const matchingOption = this.options.toggleSelectElement.querySelector(`[${this.options.toggleSelectOptionsAttr}='${id}']`);
+        if (matchingOption) {
+            matchingOption.selected = true;
+        }
     }
 
     handleSelectChange = async (event) => {
@@ -187,6 +197,7 @@ export default class Collapsify {
         }
         this.itemsState[id].isOpen = true;
         this.toggleAriaAttribute(toggleBody, "aria-hidden", true);
+        this.syncSelectToTab(id);
     }
 
     async close(id, isRunCallback = true, isAnimation = true) {

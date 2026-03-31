@@ -1,40 +1,28 @@
-import { resolve } from 'path'
-import path from 'path';
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vite';
+import { resolve } from 'path';
 
-const root = resolve(__dirname, 'src');
+const entryPath = resolve(__dirname, 'src/js/core/Collapsify.js');
 const outDir = resolve(__dirname, 'dist');
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  root,
-  plugins: [],
-  build: {
-    outDir,
-    emptyOutDir: true,
-    rollupOptions: {
-      input: {
-        main: resolve(root, 'index.html'),
-      }
-    }
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@js': path.resolve(__dirname, './src/js'),
-      '@scss': path.resolve(__dirname, './src/scss'),
-      '@assets': path.resolve(__dirname, './src/assets'),
+    build: {
+        lib: {
+            entry: entryPath,
+            name: 'Collapsify',
+            formats: ['es', 'umd'],
+            fileName: (format) => `Collapsify.${format}.js`,
+        },
+        outDir,
+        emptyOutDir: true,
+        rollupOptions: {
+            external: ['@andresclua/jsutil', '@terrahq/helpers'],
+        },
     },
-  },
-  css: { 
-    preprocessorOptions: { 
-      scss: { 
-        additionalData: `
-          @import "./src/scss/framework/_vars/_vars.scss";
-          @import "./src/scss/framework/_mixins/_mixins.scss";
-          @import "./src/scss/framework/foundation/foundation.scss";
-        ` 
-      }  
-    }
-  }  
-})
+    resolve: {
+        alias: {
+            '@': resolve(__dirname, './src'),
+            '@js': resolve(__dirname, './src/js'),
+            '@scss': resolve(__dirname, './src/scss'),
+        },
+    },
+});
